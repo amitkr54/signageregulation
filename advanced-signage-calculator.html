@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Signage Calculator | SignageWorks.in</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            color: #718096;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .calculator-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: #f8fafc;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border-right: 1px solid #e2e8f0;
+        }
+        
+        .tab:last-child {
+            border-right: none;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #edf2f7;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .calculator-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .calculator-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .calculator-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: middle;
+        }
+        
+        .calculator-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .calculator-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .sign-name {
+            font-weight: 600;
+            color: #2d3748;
+            min-width: 200px;
+        }
+        
+        .size-info {
+            color: #718096;
+            font-size: 12px;
+            font-style: italic;
+        }
+        
+        .material-select,
+        .size-select {
+            padding: 8px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            min-width: 120px;
+        }
+        
+        .size-select {
+            min-width: 140px;
+        }
+        
+        .quantity-input {
+            padding: 8px 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+            width: 80px;
+        }
+        
+        .price-display {
+            font-weight: 600;
+            color: #059669;
+            font-size: 16px;
+            text-align: right;
+        }
+        
+        .total-row {
+            background: #f0fff4 !important;
+            font-weight: bold;
+            border-top: 2px solid #059669;
+        }
+        
+        .total-row td {
+            padding: 15px 12px;
+            font-size: 16px;
+        }
+        
+        .summary-container {
+            background: linear-gradient(135deg, #f0fff4 0%, #dcfce7 100%);
+            border: 2px solid #059669;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        
+        .summary-title {
+            font-size: 1.3rem;
+            color: #065f46;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #bbf7d0;
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding-top: 15px;
+            border-top: 2px solid #059669;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #f8fafc;
+            color: #4a5568;
+            border: 2px solid #e2e8f0;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .disclaimer {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .calculator-table {
+                font-size: 12px;
+            }
+            
+            .calculator-table th,
+            .calculator-table td {
+                padding: 8px 6px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Advanced Signage Calculator</h1>
+            <div class="subtitle">Professional Table-Based Cost Estimation Tool</div>
+            <div class="subtitle" style="margin-top: 5px; color: #667eea; font-weight: bold;">SignageWorks.in Professional Calculator</div>
+            
+            <!-- Site Type Selection -->
+            <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 8px; border: 2px solid #667eea;">
+                <label style="font-weight: bold; color: #2d3748; margin-bottom: 10px; display: block;">🏢 Select Your Site Type:</label>
+                <select id="site-type" style="padding: 10px 15px; border: 2px solid #667eea; border-radius: 6px; font-size: 16px; min-width: 300px; background: white;" onchange="updateSiteSpecificRecommendations()">
+                    <option value="general">General Commercial Site</option>
+                    <option value="industrial">🏭 Industrial Sites</option>
+                    <option value="office">🏢 Office Buildings</option>
+                    <option value="healthcare">🏥 Healthcare Facilities</option>
+                    <option value="education">🎓 Educational Institutions</option>
+                    <option value="retail">🛍️ Retail & Shopping Centers</option>
+                    <option value="warehouse">📦 Warehouses & Logistics</option>
+                    <option value="hospitality">🏨 Hotels & Hospitality</option>
+                </select>
+                <div id="site-recommendations" style="margin-top: 10px; padding: 10px; background: #dcfce7; border-radius: 6px; font-size: 14px; color: #065f46; display: none;">
+                    <strong>Site-Specific Recommendations:</strong>
+                    <div id="recommendations-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calculator-container">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('fire-safety')">🔥 Fire Safety</button>
+                <button class="tab" onclick="showTab('warning-hazard')">⚠️ Warning & Hazard</button>
+                <button class="tab" onclick="showTab('prohibition')">🚫 Prohibition</button>
+                <button class="tab" onclick="showTab('mandatory')">🛡️ Mandatory</button>
+                <button class="tab" onclick="showTab('wayfinding')">📍 Wayfinding</button>
+                <button class="tab" onclick="showTab('first-aid')">🏥 First Aid</button>
+                <button class="tab" onclick="showTab('traffic')">🚗 Traffic</button>
+                <button class="tab" onclick="showTab('led-signs')">💡 LED Signs</button>
+                <button class="tab" onclick="showTab('summary')">📊 Summary</button>
+            </div>
+
+            <!-- Fire Exit Signs Tab -->
+            <div id="fire-exit" class="tab-content active">
+                <div class="category-title">🔥 Fire Exit Signs</div>
+                <table class="calculator-table">
+                    <thead>
+                        <tr>
+                            <th>Sign Type</th>
+                            <th>Size</th>
+                            <th>Material</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Exit Signs</div>
+                                <div class="size-info">Standard exit doors</div>
+                            </td>
+                            <td>
+                                <select class="size-select" onchange="updatePrice('exit-signs')">
+                                    <option value="1">300×150mm</option>
+                                    <option value="1.5">400×200mm</option>
+                                    <option value="2">450×225mm</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('exit-signs')">
+                                    <option value="150">Sticker - ₹150</option>
+                                    <option value="220">Rigid PVC - ₹220</option>
+                                    <option value="350">Acrylic - ₹350</option>
+                                    <option value="450">Aluminum - ₹450</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('exit-signs')">
+                            </td>
+                            <td class="price-display" id="exit-signs-unit">₹150</td>
+                            <td class="price-display" id="exit-signs-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Directional Arrows</div>
+                                <div class="size-info">Exit route guidance</div>
+                            </td>
+                            <td>
+                                <select class="size-select" onchange="updatePrice('exit-arrows')">
+                                    <option value="1">300×150mm</option>
+                                    <option value="1.3" selected>400×200mm</option>
+                                    <option value="1.8">500×250mm</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('exit-arrows')">
+                                    <option value="200">Sticker - ₹200</option>
+                                    <option value="290">Rigid PVC - ₹290</option>
+                                    <option value="420">Acrylic - ₹420</option>
+                                    <option value="550">Aluminum - ₹550</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('exit-arrows')">
+                            </td>
+                            <td class="price-display" id="exit-arrows-unit">₹260</td>
+                            <td class="price-display" id="exit-arrows-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Assembly Points</div>
+                                <div class="size-info">Emergency gathering areas</div>
+                            </td>
+                            <td>
+                                <select class="size-select" onchange="updatePrice('assembly-points')">
+                                    <option value="1.5">450×300mm</option>
+                                    <option value="2" selected>600×400mm</option>
+                                    <option value="3">750×500mm</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('assembly-points')">
+                                    <option value="450">Sticker - ₹450</option>
+                                    <option value="650">Rigid PVC - ₹650</option>
+                                    <option value="950">Acrylic - ₹950</option>
+                                    <option value="1200">Aluminum - ₹1200</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('assembly-points')">
+                            </td>
+                            <td class="price-display" id="assembly-points-unit">₹900</td>
+                            <td class="price-display" id="assembly-points-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Emergency Exit Maps</div>
+                                <div class="size-info">Floor plan with routes</div>
+                            </td>
+                            <td>
+                                <select class="size-select" onchange="updatePrice('exit-maps')">
+                                    <option value="2">A3 (420×297mm)</option>
+                                    <option value="3" selected>A2 (594×420mm)</option>
+                                    <option value="4">A1 (841×594mm)</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('exit-maps')">
+                                    <option value="800">Laminated - ₹800</option>
+                                    <option value="1200">Acrylic - ₹1200</option>
+                                    <option value="1800">Aluminum Frame - ₹1800</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('exit-maps')">
+                            </td>
+                            <td class="price-display" id="exit-maps-unit">₹3600</td>
+                            <td class="price-display" id="exit-maps-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Fire Extinguisher Signs</div>
+                                <div class="size-info">Equipment location</div>
+                            </td>
+                            <td>
+                                <select class="size-select" onchange="updatePrice('fire-extinguisher')">
+                                    <option value="1" selected>200×200mm</option>
+                                    <option value="1.5">250×250mm</option>
+                                    <option value="2">300×300mm</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('fire-extinguisher')">
+                                    <option value="120">Sticker - ₹120</option>
+                                    <option value="180">Rigid PVC - ₹180</option>
+                                    <option value="280">Acrylic - ₹280</option>
+                                    <option value="380">Aluminum - ₹380</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('fire-extinguisher')">
+                            </td>
+                            <td class="price-display" id="fire-extinguisher-unit">₹120</td>
+                            <td class="price-display" id="fire-extinguisher-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Fire Hose Reel Signs</div>
+                                <div class="size-info">Hose location indicator</div>
+                            </td>
+                            <td>
+                                <select class="size-select" onchange="updatePrice('fire-hose')">
+                                    <option value="1" selected>200×200mm</option>
+                                    <option value="1.5">250×250mm</option>
+                                    <option value="2">300×300mm</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('fire-hose')">
+                                    <option value="120">Sticker - ₹120</option>
+                                    <option value="180">Rigid PVC - ₹180</option>
+                                    <option value="280">Acrylic - ₹280</option>
+                                    <option value="380">Aluminum - ₹380</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('fire-hose')">
+                            </td>
+                            <td class="price-display" id="fire-hose-unit">₹120</td>
+                            <td class="price-display" id="fire-hose-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Fire Alarm Call Point</div>
+                                <div class="size-info">Break glass location</div>
+                            </td>
+                            <td>
+                                <select class="size-select" onchange="updatePrice('fire-alarm')">
+                                    <option value="1" selected>150×150mm</option>
+                                    <option value="1.3">200×200mm</option>
+                                    <option value="1.8">250×250mm</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('fire-alarm')">
+                                    <option value="100">Sticker - ₹100</option>
+                                    <option value="150">Rigid PVC - ₹150</option>
+                                    <option value="250">Acrylic - ₹250</option>
+                                    <option value="320">Aluminum - ₹320</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('fire-alarm')">
+                            </td>
+                            <td class="price-display" id="fire-alarm-unit">₹100</td>
+                            <td class="price-display" id="fire-alarm-total">₹0</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="5"><strong>Fire Exit Signs Total:</strong></td>
+                            <td class="price-display" id="fire-exit-category-total">₹0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Warning Signs Tab -->
+            <div id="warning" class="tab-content">
+                <div class="category-title">⚠️ Warning & Hazard Signs</div>
+                <table class="calculator-table">
+                    <thead>
+                        <tr>
+                            <th>Sign Type</th>
+                            <th>Material</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="sign-name">General Warning</div>
+                                <div class="size-info">200×150mm - Standard warning signs</div>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('general-warning')">
+                                    <option value="120">Sticker - ₹120</option>
+                                    <option value="180">Rigid PVC - ₹180</option>
+                                    <option value="280">Acrylic - ₹280</option>
+                                    <option value="380">Aluminum - ₹380</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('general-warning')">
+                            </td>
+                            <td class="price-display" id="general-warning-unit">₹120</td>
+                            <td class="price-display" id="general-warning-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Electrical Hazard</div>
+                                <div class="size-info">150×150mm - High voltage warnings</div>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('electrical-hazard')">
+                                    <option value="100">Sticker - ₹100</option>
+                                    <option value="150">Rigid PVC - ₹150</option>
+                                    <option value="250">Acrylic - ₹250</option>
+                                    <option value="320">Aluminum - ₹320</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('electrical-hazard')">
+                            </td>
+                            <td class="price-display" id="electrical-hazard-unit">₹100</td>
+                            <td class="price-display" id="electrical-hazard-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Chemical Hazard</div>
+                                <div class="size-info">200×200mm - Chemical safety warnings</div>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('chemical-hazard')">
+                                    <option value="180">Sticker - ₹180</option>
+                                    <option value="250">Rigid PVC - ₹250</option>
+                                    <option value="380">Acrylic - ₹380</option>
+                                    <option value="480">Aluminum - ₹480</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('chemical-hazard')">
+                            </td>
+                            <td class="price-display" id="chemical-hazard-unit">₹180</td>
+                            <td class="price-display" id="chemical-hazard-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">No Smoking</div>
+                                <div class="size-info">150×150mm - Smoking prohibition</div>
+                            </td>
+                            <td>
+                                <select class="material-select" onchange="updatePrice('no-smoking')">
+                                    <option value="90">Sticker - ₹90</option>
+                                    <option value="140">Rigid PVC - ₹140</option>
+                                    <option value="220">Acrylic - ₹220</option>
+                                    <option value="300">Aluminum - ₹300</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('no-smoking')">
+                            </td>
+                            <td class="price-display" id="no-smoking-unit">₹90</td>
+                            <td class="price-display" id="no-smoking-total">₹0</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="4"><strong>Warning Signs Total:</strong></td>
+                            <td class="price-display" id="warning-category-total">₹0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Floor Markings Tab -->
+            <div id="floor-markings" class="tab-content">
+                <div class="category-title">🚶 Floor Markings & Directional Signage</div>
+                <table class="calculator-table">
+                    <thead>
+                        <tr>
+                            <th>Marking Type</th>
+                            <th>Specification</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Floor Marking Tape</div>
+                                <div class="size-info">50mm width - Evacuation route marking</div>
+                            </td>
+                            <td>Per Meter</td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="9999" onchange="updatePrice('floor-tape')">
+                            </td>
+                            <td class="price-display" id="floor-tape-unit">₹35</td>
+                            <td class="price-display" id="floor-tape-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Floor Mounted Signs</div>
+                                <div class="size-info">300×300mm - Directional floor indicators</div>
+                            </td>
+                            <td>Per Sign</td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('floor-signs')">
+                            </td>
+                            <td class="price-display" id="floor-signs-unit">₹220</td>
+                            <td class="price-display" id="floor-signs-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Stair Edge Marking</div>
+                                <div class="size-info">Anti-slip photoluminescent strips</div>
+                            </td>
+                            <td>Per Step</td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('stair-marking')">
+                            </td>
+                            <td class="price-display" id="stair-marking-unit">₹15</td>
+                            <td class="price-display" id="stair-marking-total">₹0</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="4"><strong>Floor Markings Total:</strong></td>
+                            <td class="price-display" id="floor-category-total">₹0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- LED Signs Tab -->
+            <div id="led-signs" class="tab-content">
+                <div class="category-title">💡 LED Emergency Signs</div>
+                <table class="calculator-table">
+                    <thead>
+                        <tr>
+                            <th>LED Sign Type</th>
+                            <th>Specifications</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Basic LED Exit</div>
+                                <div class="size-info">300×150mm - Maintained operation</div>
+                            </td>
+                            <td>230V AC, 3W LED</td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('led-basic')">
+                            </td>
+                            <td class="price-display" id="led-basic-unit">₹1,800</td>
+                            <td class="price-display" id="led-basic-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">LED with Battery Backup</div>
+                                <div class="size-info">300×150mm - 3hr emergency backup</div>
+                            </td>
+                            <td>230V AC + Battery, Auto test</td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('led-battery')">
+                            </td>
+                            <td class="price-display" id="led-battery-unit">₹3,200</td>
+                            <td class="price-display" id="led-battery-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Large LED Exit</div>
+                                <div class="size-info">400×200mm - High ceiling applications</div>
+                            </td>
+                            <td>230V AC + Battery, 5W LED</td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('led-large')">
+                            </td>
+                            <td class="price-display" id="led-large-unit">₹4,500</td>
+                            <td class="price-display" id="led-large-total">₹0</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="sign-name">Suspended LED Exit</div>
+                                <div class="size-info">Double-sided, hanging installation</div>
+                            </td>
+                            <td>230V AC + Battery, Ceiling mount</td>
+                            <td>
+                                <input type="number" class="quantity-input" value="0" min="0" max="999" onchange="updatePrice('led-suspended')">
+                            </td>
+                            <td class="price-display" id="led-suspended-unit">₹5,800</td>
+                            <td class="price-display" id="led-suspended-total">₹0</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td colspan="4"><strong>LED Signs Total:</strong></td>
+                            <td class="price-display" id="led-category-total">₹0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Summary Tab -->
+            <div id="summary" class="tab-content">
+                <div class="category-title">📊 Project Cost Summary</div>
+                <div class="summary-container">
+                    <div class="summary-title">💰 Total Project Estimation</div>
+                    <div class="summary-item">
+                        <span>Fire Exit Signs:</span>
+                        <span id="summary-fire-exit">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Warning Signs:</span>
+                        <span id="summary-warning">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Floor Markings:</span>
+                        <span id="summary-floor">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>LED Signs:</span>
+                        <span id="summary-led">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Project Total:</strong></span>
+                        <span id="summary-total">₹0</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-primary" onclick="generateDetailedQuote()">📄 Generate Detailed Quote</button>
+                    <button class="btn btn-secondary" onclick="resetCalculator()">🔄 Reset Calculator</button>
+                    <button class="btn btn-secondary" onclick="printQuote()">🖨️ Print Quote</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="disclaimer">
+            <strong>⚠️ Important Note:</strong> 
+            The costs shown are indicative base prices and may vary based on project location, site conditions, installation complexity, delivery timeline, quantity discounts, and current market rates. Final pricing will be provided after site survey and detailed specifications. Installation charges, electrical work, permits, and taxes are not included in the above estimates.
+        </div>
+    </div>
+
+    <script>
+        // Price data structure
+        const priceData = {
+            'exit-signs': 150,
+            'exit-arrows': 200,
+            'assembly-points': 450,
+            'general-warning': 120,
+            'electrical-hazard': 100,
+            'chemical-hazard': 180,
+            'no-smoking': 90,
+            'floor-tape': 35,
+            'floor-signs': 220,
+            'stair-marking': 15,
+            'led-basic': 1800,
+            'led-battery': 3200,
+            'led-large': 4500,
+            'led-suspended': 5800
+        };
+
+        // Tab switching functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // Update summary when summary tab is opened
+            if (tabName === 'summary') {
+                updateSummary();
+            }
+        }
+
+        // Price update functionality
+        function updatePrice(itemId) {
+            const row = event.target.closest('tr');
+            let materialPrice, sizeMultiplier, quantity;
+            
+            // Get material price
+            const materialSelect = row.querySelector('.material-select');
+            materialPrice = materialSelect ? parseInt(materialSelect.value) : priceData[itemId];
+            
+            // Get size multiplier
+            const sizeSelect = row.querySelector('.size-select');
+            sizeMultiplier = sizeSelect ? parseFloat(sizeSelect.value) : 1;
+            
+            // Get quantity
+            const quantityInput = row.querySelector('.quantity-input');
+            quantity = quantityInput ? parseInt(quantityInput.value) || 0 : 0;
+            
+            // Calculate unit price with size multiplier
+            const unitPrice = Math.round(materialPrice * sizeMultiplier);
+            const total = unitPrice * quantity;
+            
+            // Update unit price display
+            const unitDisplay = document.getElementById(itemId + '-unit');
+            if (unitDisplay) {
+                unitDisplay.textContent = formatCurrency(unitPrice);
+            }
+            
+            // Update total price display
+            const totalDisplay = document.getElementById(itemId + '-total');
+            if (totalDisplay) {
+                totalDisplay.textContent = formatCurrency(total);
+            }
+            
+            // Update category totals
+            updateCategoryTotals();
+        }
+
+        // Update category totals
+        function updateCategoryTotals() {
+            // Fire Exit Category
+            const fireExitTotal = 
+                (parseInt(document.querySelector('#fire-exit .quantity-input').value) || 0) * 
+                parseInt(document.querySelector('#fire-exit .material-select').value) +
+                (parseInt(document.querySelectorAll('#fire-exit .quantity-input')[1].value) || 0) * 
+                parseInt(document.querySelectorAll('#fire-exit .material-select')[1].value) +
+                (parseInt(document.querySelectorAll('#fire-exit .quantity-input')[2].value) || 0) * 
+                parseInt(document.querySelectorAll('#fire-exit .material-select')[2].value);
+            
+            document.getElementById('fire-exit-category-total').textContent = formatCurrency(fireExitTotal);
+            
+            // Warning Category
+            const warningInputs = document.querySelectorAll('#warning .quantity-input');
+            const warningSelects = document.querySelectorAll('#warning .material-select');
+            let warningTotal = 0;
+            
+            for (let i = 0; i < warningInputs.length; i++) {
+                const qty = parseInt(warningInputs[i].value) || 0;
+                const price = parseInt(warningSelects[i].value);
+                warningTotal += qty * price;
+            }
+            
+            document.getElementById('warning-category-total').textContent = formatCurrency(warningTotal);
+            
+            // Floor Markings Category
+            const floorInputs = document.querySelectorAll('#floor-markings .quantity-input');
+            const floorTotal = 
+                (parseInt(floorInputs[0].value) || 0) * 35 +
+                (parseInt(floorInputs[1].value) || 0) * 220 +
+                (parseInt(floorInputs[2].value) || 0) * 15;
+            
+            document.getElementById('floor-category-total').textContent = formatCurrency(floorTotal);
+            
+            // LED Category
+            const ledInputs = document.querySelectorAll('#led-signs .quantity-input');
+            const ledTotal = 
+                (parseInt(ledInputs[0].value) || 0) * 1800 +
+                (parseInt(ledInputs[1].value) || 0) * 3200 +
+                (parseInt(ledInputs[2].value) || 0) * 4500 +
+                (parseInt(ledInputs[3].value) || 0) * 5800;
+            
+            document.getElementById('led-category-total').textContent = formatCurrency(ledTotal);
+        }
+
+        // Update summary
+        function updateSummary() {
+            const fireExitTotal = parseCurrency(document.getElementById('fire-exit-category-total').textContent);
+            const warningTotal = parseCurrency(document.getElementById('warning-category-total').textContent);
+            const floorTotal = parseCurrency(document.getElementById('floor-category-total').textContent);
+            const ledTotal = parseCurrency(document.getElementById('led-category-total').textContent);
+            
+            const grandTotal = fireExitTotal + warningTotal + floorTotal + ledTotal;
+            
+            document.getElementById('summary-fire-exit').textContent = formatCurrency(fireExitTotal);
+            document.getElementById('summary-warning').textContent = formatCurrency(warningTotal);
+            document.getElementById('summary-floor').textContent = formatCurrency(floorTotal);
+            document.getElementById('summary-led').textContent = formatCurrency(ledTotal);
+            document.getElementById('summary-total').textContent = formatCurrency(grandTotal);
+        }
+
+        // Currency formatting
+        function formatCurrency(amount) {
+            return '₹' + amount.toLocaleString('en-IN');
+        }
+
+        function parseCurrency(currencyString) {
+            return parseInt(currencyString.replace(/[₹,]/g, '')) || 0;
+        }
+
+        // Reset calculator
+        function resetCalculator() {
+            if (confirm('Are you sure you want to reset all values?')) {
+                document.querySelectorAll('.quantity-input').forEach(input => input.value = 0);
+                document.querySelectorAll('.material-select').forEach(select => select.selectedIndex = 0);
+                document.querySelectorAll('.price-display').forEach(display => {
+                    if (display.id.includes('total')) {
+                        display.textContent = '₹0';
+                    }
+                });
+                updateCategoryTotals();
+                updateSummary();
+            }
+        }
+
+        // Generate detailed quote
+        function generateDetailedQuote() {
+            const projectData = gatherProjectData();
+            const quoteText = generateQuoteText(projectData);
+            downloadQuote(quoteText);
+        }
+
+        function gatherProjectData() {
+            return {
+                fireExit: parseCurrency(document.getElementById('fire-exit-category-total').textContent),
+                warning: parseCurrency(document.getElementById('warning-category-total').textContent),
+                floor: parseCurrency(document.getElementById('floor-category-total').textContent),
+                led: parseCurrency(document.getElementById('led-category-total').textContent),
+                total: parseCurrency(document.getElementById('summary-total').textContent),
+                timestamp: new Date().toLocaleDateString('en-IN')
+            };
+        }
+
+        function generateQuoteText(data) {
+            return `DETAILED SIGNAGE PROJECT QUOTE
+Generated by SignageWorks.in Professional Calculator
+
+Date: ${data.timestamp}
+----------------------------------------
+
+COST BREAKDOWN:
+• Fire Exit Signs: ${formatCurrency(data.fireExit)}
+• Warning & Hazard Signs: ${formatCurrency(data.warning)}
+• Floor Markings: ${formatCurrency(data.floor)}
+• LED Emergency Signs: ${formatCurrency(data.led)}
+
+ESTIMATED TOTAL: ${formatCurrency(data.total)}
+
+IMPORTANT NOTES:
+- Costs are indicative and may vary based on actual site conditions
+- Installation charges not included
+- Final pricing subject to site survey and specifications
+- Electrical work and permits charged separately
+- Valid for 30 days from generation date
+
+Contact SignageWorks.in for detailed site survey and final quotation.`;
+        }
+
+        function downloadQuote(content) {
+            const element = document.createElement('a');
+            const file = new Blob([content], { type: 'text/plain' });
+            element.href = URL.createObjectURL(file);
+            element.download = `SignageWorks_Advanced_Quote_${Date.now()}.txt`;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            alert('Detailed quote generated successfully!');
+        }
+
+        // Print functionality
+        function printQuote() {
+            updateSummary();
+            window.print();
+        }
+
+        // Site-specific recommendations
+        function updateSiteSpecificRecommendations() {
+            const siteType = document.getElementById('site-type').value;
+            const recommendationsDiv = document.getElementById('site-recommendations');
+            const contentDiv = document.getElementById('recommendations-content');
+            
+            const recommendations = {
+                general: {
+                    show: false,
+                    content: ''
+                },
+                industrial: {
+                    show: true,
+                    content: `
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>🏭 Confined Space Entry Signs - Critical for permit-required areas</li>
+                            <li>🔒 Lockout/Tagout (LOTO) Signs - Energy isolation safety</li>
+                            <li>🔥 Hot Work Permit Signs - Welding/cutting safety zones</li>
+                            <li>🏗️ Crane Operation Signs - Heavy lifting safety areas</li>
+                            <li>⬇️ Fall Protection Signs - Height work safety requirements</li>
+                            <li>🚨 Moving Machinery Warnings - Equipment operation zones</li>
+                            <li>☣️ Chemical Storage Signs - Hazardous material handling</li>
+                        </ul>`
+                },
+                office: {
+                    show: true,
+                    content: `
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>🏢 Meeting Room Signs - Professional conference area identification</li>
+                            <li>🏬 Department Identification - Clear office area marking</li>
+                            <li>📋 Visitor Registration - Security compliance signage</li>
+                            <li>📶 Wi-Fi Information - Guest network access details</li>
+                            <li>📋 Emergency Procedures - Detailed evacuation instructions</li>
+                            <li>🚻 Accessible Toilets - Disability compliance signage</li>
+                            <li>🅿️ Visitor Parking - Designated guest parking areas</li>
+                        </ul>`
+                },
+                healthcare: {
+                    show: true,
+                    content: `
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>🦠 Infection Control Signs - Hygiene and safety protocols</li>
+                            <li>☢️ Radiation Area Warning - Medical imaging safety zones</li>
+                            <li>🫁 Oxygen in Use Warning - Medical gas safety notices</li>
+                            <li>🔒 Patient Information Privacy - HIPAA compliance signage</li>
+                            <li>☣️ Biohazard Areas - Medical waste handling zones</li>
+                            <li>🩺 First Aid & AED Locations - Life-saving equipment marking</li>
+                            <li>👥 Patient Flow Direction - Wayfinding for medical facilities</li>
+                        </ul>`
+                },
+                education: {
+                    show: true,
+                    content: `
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>🏫 Classroom Number Signs - Room identification system</li>
+                            <li>🧪 Laboratory Safety Signs - Age-appropriate science safety</li>
+                            <li>📚 Emergency Procedures - Student-friendly evacuation guides</li>
+                            <li>🏀 Playground Safety Signs - Activity area safety rules</li>
+                            <li>🚌 Bus Loading Zones - Student transport safety areas</li>
+                            <li>🔬 Chemical Storage Warning - Lab safety compliance</li>
+                            <li>♿ Accessibility Signs - Student disability support</li>
+                        </ul>`
+                },
+                retail: {
+                    show: true,
+                    content: `
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>🛍️ Customer Flow Direction - Shopping area wayfinding</li>
+                            <li>🚻 Restroom Location Signs - Customer facility guidance</li>
+                            <li>🚪 Store Hours Display - Operating time information</li>
+                            <li>🅿️ Customer Parking - Designated shopping parking</li>
+                            <li>🛒 Shopping Cart Return - Customer convenience signage</li>
+                            <li>📱 No Photography Signs - Security/privacy areas</li>
+                            <li>🔥 Maximum Occupancy - Fire safety compliance</li>
+                        </ul>`
+                },
+                warehouse: {
+                    show: true,
+                    content: `
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>🚛 Loading Zone Signs - Goods handling area marking</li>
+                            <li>⚠️ Forklift Operation Areas - Heavy equipment safety zones</li>
+                            <li>📦 Storage Area Classification - Inventory zone identification</li>
+                            <li>🚫 Pedestrian Walkways - Safe foot traffic routes</li>
+                            <li>⬆️ Overhead Hazard Warning - Crane and equipment clearance</li>
+                            <li>🔥 Sprinkler System Signs - Fire suppression equipment</li>
+                            <li>📋 Shipping/Receiving - Logistics area identification</li>
+                        </ul>`
+                },
+                hospitality: {
+                    show: true,
+                    content: `
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>🏨 Guest Room Numbers - Professional room identification</li>
+                            <li>🍽️ Restaurant/Dining Signs - Food service area marking</li>
+                            <li>🏊 Pool Safety Signs - Swimming area safety rules</li>
+                            <li>🚗 Valet Parking Signs - Guest vehicle service areas</li>
+                            <li>📶 Wi-Fi Information - Guest internet access details</li>
+                            <li>🚻 Guest Restroom Signs - Public facility identification</li>
+                            <li>🛎️ Concierge Services - Guest assistance locations</li>
+                        </ul>`
+                }
+            };
+            
+            const rec = recommendations[siteType];
+            if (rec.show) {
+                contentDiv.innerHTML = rec.content;
+                recommendationsDiv.style.display = 'block';
+            } else {
+                recommendationsDiv.style.display = 'none';
+            }
+        }
+
+        // Initialize calculator
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCategoryTotals();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://signageworks.co.in/sitemap.xml
+
+# Allow access to CSS and JS files
+Allow: /styles.css
+Allow: /*.css$
+Allow: /*.js$
+
+# Allow access to downloads directory
+Allow: /downloads/
+
+# Block specific files that don't need indexing
+Disallow: /*.md$
+Disallow: /README.md
+
+# General crawl-delay to be respectful
+Crawl-delay: 1

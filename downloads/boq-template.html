@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signage Project BOQ Template</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.4;
+            color: #333;
+            max-width: 297mm;
+            margin: 0 auto;
+            padding: 15mm;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #1f2937;
+            padding-bottom: 15px;
+        }
+        
+        .header h1 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        .header .subtitle {
+            color: #4a5568;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .project-info {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f8fafc;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            margin-bottom: 20px;
+        }
+        
+        .project-info div {
+            flex: 1;
+            margin-right: 20px;
+        }
+        
+        .project-info div:last-child {
+            margin-right: 0;
+        }
+        
+        .project-info h3 {
+            color: #2d3748;
+            font-size: 14px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 3px;
+        }
+        
+        .project-info p {
+            margin: 5px 0;
+            font-size: 12px;
+        }
+        
+        .boq-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 11px;
+        }
+        
+        .boq-table th,
+        .boq-table td {
+            border: 1px solid #cbd5e0;
+            padding: 8px 6px;
+            text-align: center;
+        }
+        
+        .boq-table th {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        
+        .boq-table td:nth-child(2) {
+            text-align: left;
+        }
+        
+        .boq-table td:nth-child(3) {
+            text-align: left;
+        }
+        
+        .category-header {
+            background-color: #4a5568 !important;
+            color: white !important;
+            font-weight: bold;
+            text-align: left !important;
+        }
+        
+        .category-row td {
+            background-color: #edf2f7;
+            font-weight: bold;
+        }
+        
+        .subtotal-row {
+            background-color: #f7fafc;
+            font-weight: bold;
+        }
+        
+        .total-row {
+            background-color: #2d3748;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .amount-cell {
+            text-align: right !important;
+            font-weight: bold;
+        }
+        
+        .summary-section {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .summary-box {
+            flex: 1;
+            border: 2px solid #cbd5e0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        
+        .summary-box h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 14px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 5px;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #cbd5e0;
+        }
+        
+        .summary-row:last-child {
+            border-bottom: 2px solid #2d3748;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        
+        .terms-section {
+            margin-top: 30px;
+            background-color: #f8fafc;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+        }
+        
+        .terms-section h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .terms-section ul {
+            font-size: 11px;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            border-top: 2px solid #cbd5e0;
+            padding-top: 20px;
+        }
+        
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .signature-box {
+            width: 200px;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+        }
+        
+        @media print {
+            body {
+                padding: 10mm;
+                margin: 0;
+            }
+            
+            .boq-table {
+                font-size: 9px;
+            }
+            
+            .boq-table th,
+            .boq-table td {
+                padding: 4px 3px;
+            }
+        }
+        
+        .notes-section {
+            background-color: #fef7cd;
+            border: 1px solid #f59e0b;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .notes-section h4 {
+            color: #92400e;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+        
+        .editable {
+            background-color: #fef7cd;
+            border: 1px dashed #f59e0b;
+            padding: 2px 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>BILL OF QUANTITIES (BOQ)</h1>
+        <div class="subtitle">Signage Manufacturing & Installation Project</div>
+        <div class="subtitle" style="font-weight: bold; color: #dc2626;">SignageWorks.in - Professional Signage Solutions</div>
+    </div>
+
+    <div class="project-info">
+        <div>
+            <h3>Project Details</h3>
+            <p><strong>Project Name:</strong> <span class="editable">Enter Project Name</span></p>
+            <p><strong>Client Name:</strong> <span class="editable">Enter Client Name</span></p>
+            <p><strong>Location:</strong> <span class="editable">Enter Project Location</span></p>
+            <p><strong>Project Type:</strong> <span class="editable">Office/Industrial/Retail/Healthcare</span></p>
+        </div>
+        <div>
+            <h3>BOQ Information</h3>
+            <p><strong>BOQ No:</strong> <span class="editable">SW-BOQ-2024-001</span></p>
+            <p><strong>Date:</strong> <span class="editable">DD/MM/YYYY</span></p>
+            <p><strong>Valid Until:</strong> <span class="editable">DD/MM/YYYY</span></p>
+            <p><strong>Prepared By:</strong> <span class="editable">Name & Designation</span></p>
+        </div>
+        <div>
+            <h3>Contact Information</h3>
+            <p><strong>Email:</strong> info@signageworks.in</p>
+            <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
+            <p><strong>Website:</strong> www.signageworks.in</p>
+            <p><strong>GST No:</strong> <span class="editable">Enter GST Number</span></p>
+        </div>
+    </div>
+
+    <table class="boq-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">S.No.</th>
+                <th style="width: 25%;">Item Description</th>
+                <th style="width: 20%;">Specifications</th>
+                <th style="width: 5%;">Unit</th>
+                <th style="width: 8%;">Qty</th>
+                <th style="width: 12%;">Unit Rate (₹)</th>
+                <th style="width: 15%;">Amount (₹)</th>
+                <th style="width: 10%;">Remarks</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- EMERGENCY & SAFETY SIGNAGE -->
+            <tr class="category-row">
+                <td colspan="8" class="category-header">A. EMERGENCY & SAFETY SIGNAGE</td>
+            </tr>
+            <tr>
+                <td>A1</td>
+                <td>Fire Exit Signs (Illuminated)</td>
+                <td>Acrylic with LED backlighting, Green background, 300x150mm as per IS 9457:2005</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">2,500</td>
+                <td class="amount-cell">0</td>
+                <td>Wall mounted</td>
+            </tr>
+            <tr>
+                <td>A2</td>
+                <td>Fire Exit Signs (Non-illuminated)</td>
+                <td>Vinyl on Aluminium composite, Reflective, 300x150mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">800</td>
+                <td class="amount-cell">0</td>
+                <td>Standard mounting</td>
+            </tr>
+            <tr>
+                <td>A3</td>
+                <td>Fire Extinguisher Location Signs</td>
+                <td>Red background with white text/symbols, 200x300mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">450</td>
+                <td class="amount-cell">0</td>
+                <td>Wall mounted</td>
+            </tr>
+            <tr>
+                <td>A4</td>
+                <td>Emergency Assembly Point Signs</td>
+                <td>Outdoor grade, UV resistant, 600x450mm with stands</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">3,200</td>
+                <td class="amount-cell">0</td>
+                <td>Ground mounted</td>
+            </tr>
+            <tr>
+                <td>A5</td>
+                <td>First Aid Kit Location Signs</td>
+                <td>Green cross symbol, 200x200mm, Acrylic</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">350</td>
+                <td class="amount-cell">0</td>
+                <td>Wall mounted</td>
+            </tr>
+            <tr class="subtotal-row">
+                <td colspan="6"><strong>Sub-total A: Emergency & Safety Signage</strong></td>
+                <td class="amount-cell"><strong>₹ 0</strong></td>
+                <td></td>
+            </tr>
+
+            <!-- DIRECTIONAL & WAYFINDING SIGNAGE -->
+            <tr class="category-row">
+                <td colspan="8" class="category-header">B. DIRECTIONAL & WAYFINDING SIGNAGE</td>
+            </tr>
+            <tr>
+                <td>B1</td>
+                <td>Building Directory Board</td>
+                <td>Aluminium frame, Acrylic panel, Changeable inserts, 1200x900mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">8,500</td>
+                <td class="amount-cell">0</td>
+                <td>Wall mounted</td>
+            </tr>
+            <tr>
+                <td>B2</td>
+                <td>Floor Directory Signs</td>
+                <td>Printed vinyl on Aluminium, 600x450mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">1,200</td>
+                <td class="amount-cell">0</td>
+                <td>Wall mounted</td>
+            </tr>
+            <tr>
+                <td>B3</td>
+                <td>Directional Arrow Signs</td>
+                <td>Cut vinyl graphics on Aluminium, 400x150mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">650</td>
+                <td class="amount-cell">0</td>
+                <td>Various directions</td>
+            </tr>
+            <tr>
+                <td>B4</td>
+                <td>Room Identification Plates</td>
+                <td>Engraved Acrylic/ABS, 200x50mm with room numbers</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">280</td>
+                <td class="amount-cell">0</td>
+                <td>Double-sided tape</td>
+            </tr>
+            <tr>
+                <td>B5</td>
+                <td>Hanging Direction Signs</td>
+                <td>Double-sided, Aluminium frame, 600x200mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">2,200</td>
+                <td class="amount-cell">0</td>
+                <td>Ceiling mounted</td>
+            </tr>
+            <tr class="subtotal-row">
+                <td colspan="6"><strong>Sub-total B: Directional & Wayfinding</strong></td>
+                <td class="amount-cell"><strong>₹ 0</strong></td>
+                <td></td>
+            </tr>
+
+            <!-- IDENTIFICATION SIGNAGE -->
+            <tr class="category-row">
+                <td colspan="8" class="category-header">C. IDENTIFICATION SIGNAGE</td>
+            </tr>
+            <tr>
+                <td>C1</td>
+                <td>Company Name Board (Main)</td>
+                <td>3D LED letters, Stainless steel, 150mm height</td>
+                <td>Set</td>
+                <td class="editable">0</td>
+                <td class="editable">25,000</td>
+                <td class="amount-cell">0</td>
+                <td>Facade mounting</td>
+            </tr>
+            <tr>
+                <td>C2</td>
+                <td>Reception Desk Signage</td>
+                <td>Acrylic with vinyl graphics, 1200x300mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">3,500</td>
+                <td class="amount-cell">0</td>
+                <td>Desktop/Wall mount</td>
+            </tr>
+            <tr>
+                <td>C3</td>
+                <td>Department Name Plates</td>
+                <td>Brushed Aluminium, Laser cut, 400x100mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">800</td>
+                <td class="amount-cell">0</td>
+                <td>Wall mounted</td>
+            </tr>
+            <tr>
+                <td>C4</td>
+                <td>Floor Level Indicators</td>
+                <td>Large format numbers, 3D Acrylic, 200mm height</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">1,500</td>
+                <td class="amount-cell">0</td>
+                <td>Wall/Column mounted</td>
+            </tr>
+            <tr class="subtotal-row">
+                <td colspan="6"><strong>Sub-total C: Identification Signage</strong></td>
+                <td class="amount-cell"><strong>₹ 0</strong></td>
+                <td></td>
+            </tr>
+
+            <!-- REGULATORY & COMPLIANCE SIGNAGE -->
+            <tr class="category-row">
+                <td colspan="8" class="category-header">D. REGULATORY & COMPLIANCE SIGNAGE</td>
+            </tr>
+            <tr>
+                <td>D1</td>
+                <td>No Smoking Signs</td>
+                <td>UV printed on Aluminium, 200x200mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">300</td>
+                <td class="amount-cell">0</td>
+                <td>Wall mounted</td>
+            </tr>
+            <tr>
+                <td>D2</td>
+                <td>Authorized Personnel Only</td>
+                <td>Yellow background, Black text, 300x200mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">350</td>
+                <td class="amount-cell">0</td>
+                <td>Door/Wall mount</td>
+            </tr>
+            <tr>
+                <td>D3</td>
+                <td>PPE Mandatory Signs</td>
+                <td>Safety helmet, glasses, footwear symbols, 300x400mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">450</td>
+                <td class="amount-cell">0</td>
+                <td>Entry points</td>
+            </tr>
+            <tr>
+                <td>D4</td>
+                <td>Electrical Hazard Warnings</td>
+                <td>High voltage symbol, Red/Yellow, 250x350mm</td>
+                <td>Nos</td>
+                <td class="editable">0</td>
+                <td class="editable">400</td>
+                <td class="amount-cell">0</td>
+                <td>Electrical panels</td>
+            </tr>
+            <tr class="subtotal-row">
+                <td colspan="6"><strong>Sub-total D: Regulatory & Compliance</strong></td>
+                <td class="amount-cell"><strong>₹ 0</strong></td>
+                <td></td>
+            </tr>
+
+            <!-- INSTALLATION & ACCESSORIES -->
+            <tr class="category-row">
+                <td colspan="8" class="category-header">E. INSTALLATION & ACCESSORIES</td>
+            </tr>
+            <tr>
+                <td>E1</td>
+                <td>Wall Mounting Hardware</td>
+                <td>Stainless steel brackets, screws, wall plugs</td>
+                <td>Set</td>
+                <td class="editable">0</td>
+                <td class="editable">150</td>
+                <td class="amount-cell">0</td>
+                <td>Per sign average</td>
+            </tr>
+            <tr>
+                <td>E2</td>
+                <td>Ceiling Suspension System</td>
+                <td>Aluminium rail system with adjustable chains</td>
+                <td>Mtrs</td>
+                <td class="editable">0</td>
+                <td class="editable">450</td>
+                <td class="amount-cell">0</td>
+                <td>Hanging signs</td>
+            </tr>
+            <tr>
+                <td>E3</td>
+                <td>LED Lighting System</td>
+                <td>12V LED strips with transformer and wiring</td>
+                <td>Set</td>
+                <td class="editable">0</td>
+                <td class="editable">1,200</td>
+                <td class="amount-cell">0</td>
+                <td>Illuminated signs</td>
+            </tr>
+            <tr>
+                <td>E4</td>
+                <td>Installation Labour</td>
+                <td>Professional installation with tools and equipment</td>
+                <td>Day</td>
+                <td class="editable">0</td>
+                <td class="editable">3,500</td>
+                <td class="amount-cell">0</td>
+                <td>2-person team</td>
+            </tr>
+            <tr>
+                <td>E5</td>
+                <td>Site Survey & Design</td>
+                <td>Technical survey, measurements, design preparation</td>
+                <td>LS</td>
+                <td class="editable">0</td>
+                <td class="editable">5,000</td>
+                <td class="amount-cell">0</td>
+                <td>Lump sum</td>
+            </tr>
+            <tr class="subtotal-row">
+                <td colspan="6"><strong>Sub-total E: Installation & Accessories</strong></td>
+                <td class="amount-cell"><strong>₹ 0</strong></td>
+                <td></td>
+            </tr>
+
+            <!-- TOTAL SECTION -->
+            <tr class="total-row">
+                <td colspan="6"><strong>TOTAL BASIC AMOUNT</strong></td>
+                <td class="amount-cell"><strong>₹ 0</strong></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="summary-section">
+        <div class="summary-box">
+            <h3>Cost Summary</h3>
+            <div class="summary-row">
+                <span>Basic Amount:</span>
+                <span><strong>₹ <span class="editable">0</span></strong></span>
+            </div>
+            <div class="summary-row">
+                <span>GST @ 18%:</span>
+                <span><strong>₹ <span class="editable">0</span></strong></span>
+            </div>
+            <div class="summary-row">
+                <span>Total Project Cost:</span>
+                <span><strong>₹ <span class="editable">0</span></strong></span>
+            </div>
+        </div>
+        
+        <div class="summary-box">
+            <h3>Payment Schedule</h3>
+            <div class="summary-row">
+                <span>Advance (30%):</span>
+                <span><strong>₹ <span class="editable">0</span></strong></span>
+            </div>
+            <div class="summary-row">
+                <span>On Material Supply (40%):</span>
+                <span><strong>₹ <span class="editable">0</span></strong></span>
+            </div>
+            <div class="summary-row">
+                <span>On Completion (30%):</span>
+                <span><strong>₹ <span class="editable">0</span></strong></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="notes-section">
+        <h4>Important Notes & Instructions:</h4>
+        <ul>
+            <li>All rates are inclusive of material, manufacturing, and basic installation</li>
+            <li>Electrical connections for illuminated signs to be provided by client</li>
+            <li>Quantities are provisional and subject to final site measurements</li>
+            <li>Additional charges may apply for heights above 3 meters</li>
+            <li>This BOQ is valid for 30 days from the date of issue</li>
+        </ul>
+    </div>
+
+    <div class="terms-section">
+        <h3>Terms & Conditions</h3>
+        <ul>
+            <li><strong>Materials:</strong> All signage materials conform to IS standards and safety regulations</li>
+            <li><strong>Quality:</strong> 2-year warranty on manufacturing defects, 1-year on LED systems</li>
+            <li><strong>Installation:</strong> Professional installation included with safety compliance</li>
+            <li><strong>Timeline:</strong> Standard delivery 15-20 working days from design approval</li>
+            <li><strong>Variations:</strong> Any changes in scope will be charged/credited as per unit rates</li>
+            <li><strong>Payment:</strong> As per agreed schedule, GST extra as applicable</li>
+            <li><strong>Site Conditions:</strong> Rates assume normal working conditions and accessibility</li>
+            <li><strong>Approvals:</strong> Client responsible for obtaining necessary statutory approvals</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <div class="signature-section">
+            <div>
+                <div class="signature-box"></div>
+                <small>Prepared By: Project Manager</small>
+                <p style="font-size: 10px; margin-top: 5px;">SignageWorks.in</p>
+            </div>
+            <div>
+                <div class="signature-box"></div>
+                <small>Technical Review</small>
+                <p style="font-size: 10px; margin-top: 5px;">Design Head</p>
+            </div>
+            <div>
+                <div class="signature-box"></div>
+                <small>Client Acceptance</small>
+                <p style="font-size: 10px; margin-top: 5px;">Authorized Signatory</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin-top: 20px; font-size: 11px; color: #4a5568;">
+            <strong>SignageWorks.in</strong> | Professional Signage Manufacturing & Installation<br>
+            Email: info@signageworks.in | Website: www.signageworks.in
+        </p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Project Specification Template | SignageWorks.in</title>
+    <meta name="description" content="Interactive project specification template for signage projects including technical requirements, materials, installation guidelines, and quality standards.">
+    <meta name="keywords" content="signage project specification, technical requirements, project template, signage materials, installation guidelines">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            color: #718096;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .header .brand {
+            color: #1e40af;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .navigation {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border: 2px solid #3b82f6;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.1);
+        }
+        
+        .info-box h4 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .back-to-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(55, 65, 81, 0.3);
+        }
+        
+        .document-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            line-height: 1.5;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .document-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #1f2937;
+            padding-bottom: 20px;
+        }
+        
+        .document-header h1 {
+            color: #1f2937;
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .document-header .subtitle {
+            color: #4a5568;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .project-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background-color: #f8fafc;
+            padding: 20px;
+            border: 1px solid #cbd5e0;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        
+        .project-info h3 {
+            color: #2d3748;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #cbd5e0;
+            padding-bottom: 5px;
+        }
+        
+        .project-info p {
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        
+        .spec-section {
+            margin-bottom: 30px;
+        }
+        
+        .spec-section h2 {
+            background-color: #2d3748;
+            color: white;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        
+        .spec-section h3 {
+            color: #2d3748;
+            font-size: 16px;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 5px;
+        }
+        
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 12px;
+        }
+        
+        .spec-table th,
+        .spec-table td {
+            border: 1px solid #cbd5e0;
+            padding: 10px 8px;
+            text-align: left;
+        }
+        
+        .spec-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .requirement-box {
+            background-color: #fef7cd;
+            border: 2px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .requirement-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .compliance-box {
+            background-color: #f0fdf4;
+            border: 2px solid #22c55e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .compliance-box h4 {
+            color: #15803d;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .editable {
+            background-color: #fef7cd;
+            border: 1px dashed #f59e0b;
+            padding: 3px 6px;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .back-to-home {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-home">← Back to Home</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>📋 Project Specification Template</h1>
+            <div class="subtitle">Professional Signage Project Requirements & Technical Specifications</div>
+            <div class="brand">SignageWorks.in Professional Tools</div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-buttons">
+                <a href="view-fire-exit-signs.html" class="nav-btn">Fire Exit Signs</a>
+                <a href="view-warning-hazard-signs.html" class="nav-btn">Warning & Hazard Signs</a>
+                <a href="#" class="nav-btn active">Project Specifications</a>
+                <a href="view-layout-planning.html" class="nav-btn">Layout Planning</a>
+                <a href="view-cost-calculator.html" class="nav-btn">Cost Calculator</a>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="info-box">
+                <h4>📐 Comprehensive Project Template</h4>
+                <p>This detailed specification template covers all aspects of signage projects including technical requirements, materials, installation guidelines, quality standards, compliance requirements, and approval processes. Perfect for architects, contractors, and project managers.</p>
+            </div>
+            
+            <div class="document-container">
+                <div class="document-header">
+                    <h1>Signage Project Specification Template</h1>
+                    <div class="subtitle">Professional Technical Requirements & Standards</div>
+                    <div class="subtitle" style="margin-top: 5px; color: #3b82f6; font-weight: bold;">SignageWorks.in Template</div>
+                </div>
+                
+                <div class="project-info">
+                    <div>
+                        <h3>Project Information</h3>
+                        <p><strong>Project Name:</strong> <span class="editable">[Enter Project Name]</span></p>
+                        <p><strong>Client:</strong> <span class="editable">[Client Name]</span></p>
+                        <p><strong>Location:</strong> <span class="editable">[Project Address]</span></p>
+                        <p><strong>Project Type:</strong> <span class="editable">[Commercial/Industrial/Public]</span></p>
+                    </div>
+                    <div>
+                        <h3>Contract Details</h3>
+                        <p><strong>Contract No:</strong> <span class="editable">[Contract Number]</span></p>
+                        <p><strong>Date:</strong> <span class="editable">[Date]</span></p>
+                        <p><strong>Contractor:</strong> <span class="editable">[Contractor Name]</span></p>
+                        <p><strong>Architect:</strong> <span class="editable">[Architect/Designer]</span></p>
+                    </div>
+                </div>
+                
+                <div class="spec-section">
+                    <h2>1. Technical Specifications</h2>
+                    
+                    <h3>1.1 Fire Exit Signage (IS 9457:2005)</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Sign Type</th>
+                                <th>Size (mm)</th>
+                                <th>Material</th>
+                                <th>Illumination</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Standard Exit Sign</td>
+                                <td>300 x 150</td>
+                                <td>Photoluminescent Acrylic</td>
+                                <td>LED Backlit</td>
+                                <td class="editable">[Qty]</td>
+                            </tr>
+                            <tr>
+                                <td>Directional Exit Arrow</td>
+                                <td>400 x 200</td>
+                                <td>Aluminum Composite</td>
+                                <td>Edge Lit LED</td>
+                                <td class="editable">[Qty]</td>
+                            </tr>
+                            <tr>
+                                <td>Assembly Point</td>
+                                <td>600 x 400</td>
+                                <td>Weather Resistant Vinyl</td>
+                                <td>Reflective</td>
+                                <td class="editable">[Qty]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <h3>1.2 Warning & Hazard Signs</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Sign Category</th>
+                                <th>Standard</th>
+                                <th>Color Scheme</th>
+                                <th>Mounting</th>
+                                <th>Visibility Range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>General Warning</td>
+                                <td>IS 9457:2005</td>
+                                <td>Yellow/Black</td>
+                                <td>Wall Mount</td>
+                                <td>15m</td>
+                            </tr>
+                            <tr>
+                                <td>Electrical Hazard</td>
+                                <td>IS 1885</td>
+                                <td>Yellow/Black</td>
+                                <td>Panel Mount</td>
+                                <td>10m</td>
+                            </tr>
+                            <tr>
+                                <td>Chemical Hazard</td>
+                                <td>GHS Standards</td>
+                                <td>Per GHS Guidelines</td>
+                                <td>Equipment Mount</td>
+                                <td>8m</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="spec-section">
+                    <h2>2. Material Specifications</h2>
+                    
+                    <div class="requirement-box">
+                        <h4>Primary Materials</h4>
+                        <ul>
+                            <li><strong>Acrylic Sheets:</strong> 3mm thickness, UV stable, photoluminescent grade</li>
+                            <li><strong>Aluminum Composite:</strong> 4mm ACP with PVDF coating</li>
+                            <li><strong>LED Modules:</strong> IP65 rated, 50,000+ hour lifespan</li>
+                            <li><strong>Mounting Hardware:</strong> Stainless steel, corrosion resistant</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="compliance-box">
+                        <h4>Quality Standards</h4>
+                        <ul>
+                            <li>All materials shall comply with relevant Indian Standards (IS)</li>
+                            <li>LED modules must have CE/RoHS certification</li>
+                            <li>Photoluminescent materials: DIN 67510 Class A</li>
+                            <li>Fire resistance: BS 476 Part 7 Class 1</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="spec-section">
+                    <h2>3. Installation Requirements</h2>
+                    
+                    <h3>3.1 Mounting Heights</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Sign Type</th>
+                                <th>Standard Height</th>
+                                <th>Viewing Angle</th>
+                                <th>Clearance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Exit Signs</td>
+                                <td>2.1m from floor</td>
+                                <td>±30°</td>
+                                <td>200mm from ceiling</td>
+                            </tr>
+                            <tr>
+                                <td>Directional Signs</td>
+                                <td>1.8-2.2m</td>
+                                <td>±45°</td>
+                                <td>As per corridor width</td>
+                            </tr>
+                            <tr>
+                                <td>Warning Signs</td>
+                                <td>1.4-1.7m</td>
+                                <td>±60°</td>
+                                <td>500mm from obstacles</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="requirement-box">
+                        <h4>Installation Guidelines</h4>
+                        <ul>
+                            <li>All electrical connections by licensed electrician</li>
+                            <li>Mounting points to be structural grade</li>
+                            <li>Cable management through proper conduits</li>
+                            <li>Testing and commissioning required</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="spec-section">
+                    <h2>4. Quality Assurance</h2>
+                    
+                    <div class="compliance-box">
+                        <h4>Testing Requirements</h4>
+                        <ul>
+                            <li>Luminance testing for photoluminescent signs</li>
+                            <li>Electrical safety testing for illuminated signs</li>
+                            <li>Weather resistance testing for outdoor signs</li>
+                            <li>Compliance verification with local fire authority</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>4.1 Warranty Terms</h3>
+                    <table class="spec-table">
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Warranty Period</th>
+                                <th>Coverage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>LED Modules</td>
+                                <td>5 Years</td>
+                                <td>Manufacturing defects, lumen maintenance</td>
+                            </tr>
+                            <tr>
+                                <td>Photoluminescent Material</td>
+                                <td>10 Years</td>
+                                <td>Glow performance degradation</td>
+                            </tr>
+                            <tr>
+                                <td>Mechanical Components</td>
+                                <td>2 Years</td>
+                                <td>Structural integrity, hardware</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

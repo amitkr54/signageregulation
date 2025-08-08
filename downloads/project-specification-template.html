@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signage Project Specification Template</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.5;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #1f2937;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #1f2937;
+            font-size: 26px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .header .subtitle {
+            color: #4a5568;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .project-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            background-color: #f8fafc;
+            padding: 20px;
+            border: 1px solid #cbd5e0;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        
+        .project-info h3 {
+            color: #2d3748;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #cbd5e0;
+            padding-bottom: 5px;
+        }
+        
+        .project-info p {
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h2 {
+            background-color: #2d3748;
+            color: white;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        
+        .section h3 {
+            color: #2d3748;
+            font-size: 16px;
+            margin-bottom: 10px;
+            margin-top: 20px;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 5px;
+        }
+        
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 12px;
+        }
+        
+        .spec-table th,
+        .spec-table td {
+            border: 1px solid #cbd5e0;
+            padding: 10px 8px;
+            text-align: left;
+        }
+        
+        .spec-table th {
+            background-color: #4a5568;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .spec-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .requirement-box {
+            background-color: #fef7cd;
+            border: 2px solid #f59e0b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .requirement-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .compliance-box {
+            background-color: #f0fdf4;
+            border: 2px solid #22c55e;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .compliance-box h4 {
+            color: #15803d;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .editable {
+            background-color: #fef7cd;
+            border: 1px dashed #f59e0b;
+            padding: 3px 6px;
+            border-radius: 3px;
+        }
+        
+        .material-spec {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .material-card {
+            border: 1px solid #cbd5e0;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f8fafc;
+        }
+        
+        .material-card h5 {
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .approval-section {
+            margin-top: 40px;
+            border: 2px solid #2d3748;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        .signature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .signature-box {
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-bottom: 1px solid #4a5568;
+            height: 40px;
+            margin-bottom: 10px;
+        }
+        
+        @media print {
+            body {
+                padding: 10mm;
+                margin: 0;
+            }
+        }
+        
+        .dimension-table {
+            font-size: 11px;
+        }
+        
+        .dimension-table th {
+            background-color: #1f2937;
+        }
+        
+        ul li {
+            margin-bottom: 5px;
+        }
+        
+        .technical-drawing {
+            border: 2px dashed #cbd5e0;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            background-color: #f8fafc;
+            color: #6b7280;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>PROJECT SPECIFICATION</h1>
+        <div class="subtitle">Signage Manufacturing & Installation Requirements</div>
+        <div class="subtitle" style="font-weight: bold; color: #dc2626;">SignageWorks.in Professional Standards</div>
+    </div>
+
+    <div class="project-info">
+        <div>
+            <h3>Project Information</h3>
+            <p><strong>Project Name:</strong> <span class="editable">Enter Project Title</span></p>
+            <p><strong>Client:</strong> <span class="editable">Client Organization Name</span></p>
+            <p><strong>Location:</strong> <span class="editable">Project Address & City</span></p>
+            <p><strong>Project Type:</strong> <span class="editable">Office/Industrial/Retail/Healthcare</span></p>
+            <p><strong>Building Type:</strong> <span class="editable">New Construction/Renovation</span></p>
+            <p><strong>Total Area:</strong> <span class="editable">XX,XXX sq.ft.</span></p>
+        </div>
+        <div>
+            <h3>Specification Details</h3>
+            <p><strong>Spec No:</strong> <span class="editable">SW-SPEC-2024-001</span></p>
+            <p><strong>Revision:</strong> <span class="editable">Rev-00</span></p>
+            <p><strong>Date:</strong> <span class="editable">DD/MM/YYYY</span></p>
+            <p><strong>Prepared By:</strong> <span class="editable">Technical Manager</span></p>
+            <p><strong>Reviewed By:</strong> <span class="editable">Design Head</span></p>
+            <p><strong>Approved By:</strong> <span class="editable">Project Director</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>1. PROJECT SCOPE & OBJECTIVES</h2>
+        
+        <h3>1.1 Scope of Work</h3>
+        <ul>
+            <li>Design, manufacture, and installation of comprehensive signage system</li>
+            <li>Compliance with Indian Standards (IS), NBCC, and local building codes</li>
+            <li>Supply of emergency and safety signage as per IS 9457:2005</li>
+            <li>Directional and wayfinding signage for optimal navigation</li>
+            <li>Corporate identification and branding elements</li>
+            <li>Regulatory and compliance signage installation</li>
+        </ul>
+        
+        <h3>1.2 Project Objectives</h3>
+        <ul>
+            <li>Enhance building navigation and user experience</li>
+            <li>Ensure full compliance with safety regulations</li>
+            <li>Establish consistent brand identity throughout the facility</li>
+            <li>Provide accessible signage for all users including persons with disabilities</li>
+            <li>Deliver durable, low-maintenance signage solutions</li>
+        </ul>
+
+        <div class="requirement-box">
+            <h4>Key Requirements</h4>
+            <ul>
+                <li>All signage must comply with Rights of Persons with Disabilities Act 2016</li>
+                <li>Emergency signage must meet IS 9457:2005 standards</li>
+                <li>Multi-language support where required (English + <span class="editable">Local Language</span>)</li>
+                <li>Minimum 10-year material warranty required</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. DESIGN STANDARDS & GUIDELINES</h2>
+        
+        <h3>2.1 Brand Guidelines</h3>
+        <table class="spec-table">
+            <tr>
+                <th>Element</th>
+                <th>Specification</th>
+                <th>Application</th>
+            </tr>
+            <tr>
+                <td>Primary Brand Color</td>
+                <td><span class="editable">Pantone XXX / RGB (X,X,X)</span></td>
+                <td>Main identification signage</td>
+            </tr>
+            <tr>
+                <td>Secondary Color</td>
+                <td><span class="editable">Pantone XXX / RGB (X,X,X)</span></td>
+                <td>Directional and informational signs</td>
+            </tr>
+            <tr>
+                <td>Primary Typeface</td>
+                <td><span class="editable">Arial/Helvetica family</span></td>
+                <td>All text applications</td>
+            </tr>
+            <tr>
+                <td>Logo Usage</td>
+                <td>As per brand manual, minimum 25mm height</td>
+                <td>Corporate identification</td>
+            </tr>
+        </table>
+
+        <h3>2.2 Typography Standards</h3>
+        <table class="spec-table">
+            <tr>
+                <th>Sign Type</th>
+                <th>Font Size</th>
+                <th>Character Height</th>
+                <th>Viewing Distance</th>
+            </tr>
+            <tr>
+                <td>Room Identification</td>
+                <td>16pt minimum</td>
+                <td>15-25mm</td>
+                <td>2-3 meters</td>
+            </tr>
+            <tr>
+                <td>Directional Signs</td>
+                <td>18-24pt</td>
+                <td>20-35mm</td>
+                <td>3-5 meters</td>
+            </tr>
+            <tr>
+                <td>Emergency Signs</td>
+                <td>24pt minimum</td>
+                <td>25mm minimum</td>
+                <td>As per IS 9457:2005</td>
+            </tr>
+            <tr>
+                <td>Building Directory</td>
+                <td>14-16pt</td>
+                <td>12-20mm</td>
+                <td>1-2 meters</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>3. MATERIAL SPECIFICATIONS</h2>
+        
+        <div class="material-spec">
+            <div class="material-card">
+                <h5>Acrylic (PMMA)</h5>
+                <ul>
+                    <li>Thickness: 3-6mm as required</li>
+                    <li>Type: Cast acrylic, UV stabilized</li>
+                    <li>Colors: As per brand guidelines</li>
+                    <li>Finish: Matte/Gloss as specified</li>
+                    <li>Application: Indoor premium signage</li>
+                </ul>
+            </div>
+            
+            <div class="material-card">
+                <h5>Aluminium Composite Panel (ACP)</h5>
+                <ul>
+                    <li>Thickness: 3-4mm standard</li>
+                    <li>Core: Polyethylene/Mineral core</li>
+                    <li>Skin: 0.3mm aluminium minimum</li>
+                    <li>Finish: Powder coated/Anodized</li>
+                    <li>Application: Exterior and large format</li>
+                </ul>
+            </div>
+            
+            <div class="material-card">
+                <h5>Stainless Steel</h5>
+                <ul>
+                    <li>Grade: 304/316 as per application</li>
+                    <li>Thickness: 1.5-3mm</li>
+                    <li>Finish: Brushed/Mirror/Satin</li>
+                    <li>Treatment: Laser cut/Etched</li>
+                    <li>Application: Premium identification</li>
+                </ul>
+            </div>
+            
+            <div class="material-card">
+                <h5>LED Lighting Systems</h5>
+                <ul>
+                    <li>Type: 12V/24V LED strips</li>
+                    <li>Color Temperature: 6500K daylight</li>
+                    <li>Life: 50,000 hours minimum</li>
+                    <li>IP Rating: IP65 for outdoor use</li>
+                    <li>Application: Illuminated signage</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="compliance-box">
+            <h4>Material Compliance Requirements</h4>
+            <ul>
+                <li>All materials must have fire safety certificates (Class 1 fire rating)</li>
+                <li>UV resistance certification for outdoor applications</li>
+                <li>Environmental compliance (RoHS/REACH where applicable)</li>
+                <li>Structural load calculations for large format installations</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. SIGNAGE CATEGORIES & SPECIFICATIONS</h2>
+        
+        <h3>4.1 Emergency & Safety Signage</h3>
+        <table class="spec-table">
+            <tr>
+                <th>Sign Type</th>
+                <th>Dimensions (mm)</th>
+                <th>Material</th>
+                <th>Illumination</th>
+                <th>Standard</th>
+            </tr>
+            <tr>
+                <td>Fire Exit Signs</td>
+                <td>300 x 150</td>
+                <td>Acrylic with LED</td>
+                <td>Continuous + 3hr backup</td>
+                <td>IS 9457:2005</td>
+            </tr>
+            <tr>
+                <td>Fire Extinguisher</td>
+                <td>200 x 300</td>
+                <td>Aluminium/Acrylic</td>
+                <td>Photoluminescent</td>
+                <td>IS 2190:1992</td>
+            </tr>
+            <tr>
+                <td>Assembly Point</td>
+                <td>600 x 450</td>
+                <td>ACP with post</td>
+                <td>Reflective</td>
+                <td>Emergency protocols</td>
+            </tr>
+            <tr>
+                <td>First Aid</td>
+                <td>200 x 200</td>
+                <td>Acrylic</td>
+                <td>Optional LED</td>
+                <td>Universal symbol</td>
+            </tr>
+        </table>
+
+        <h3>4.2 Directional & Wayfinding Signage</h3>
+        <table class="spec-table">
+            <tr>
+                <th>Sign Type</th>
+                <th>Dimensions (mm)</th>
+                <th>Material</th>
+                <th>Mounting</th>
+                <th>Features</th>
+            </tr>
+            <tr>
+                <td>Building Directory</td>
+                <td>1200 x 900</td>
+                <td>Aluminium frame + Acrylic</td>
+                <td>Wall mounted</td>
+                <td>Changeable inserts</td>
+            </tr>
+            <tr>
+                <td>Floor Directories</td>
+                <td>600 x 450</td>
+                <td>Digital print on Aluminium</td>
+                <td>Wall mounted</td>
+                <td>Multi-language</td>
+            </tr>
+            <tr>
+                <td>Hanging Directionals</td>
+                <td>600 x 200</td>
+                <td>Double-sided Acrylic</td>
+                <td>Ceiling suspended</td>
+                <td>360° visibility</td>
+            </tr>
+            <tr>
+                <td>Room Identification</td>
+                <td>200 x 50</td>
+                <td>Engraved ABS/Acrylic</td>
+                <td>Door/Wall mount</td>
+                <td>Tactile text</td>
+            </tr>
+        </table>
+
+        <h3>4.3 Identification Signage</h3>
+        <div class="technical-drawing">
+            <p>Technical Drawing Space</p>
+            <p>Company Name Board - Elevation & Section Details</p>
+            <p>(To be provided by design team)</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>5. INSTALLATION REQUIREMENTS</h2>
+        
+        <h3>5.1 Mounting Systems</h3>
+        <ul>
+            <li><strong>Wall Mounting:</strong> Stainless steel brackets with chemical anchors for masonry, toggle bolts for drywall</li>
+            <li><strong>Ceiling Suspension:</strong> Adjustable cable system with load-rated ceiling attachments</li>
+            <li><strong>Post Mounting:</strong> Galvanized steel posts with concrete foundation (600mm depth minimum)</li>
+            <li><strong>Glass Mounting:</strong> Structural glazing tape or mechanical fixings as per glass specification</li>
+        </ul>
+
+        <h3>5.2 Electrical Requirements</h3>
+        <ul>
+            <li>All illuminated signs require separate electrical connections</li>
+            <li>Emergency lighting with 3-hour backup battery systems</li>
+            <li>IP65 rated connections for outdoor installations</li>
+            <li>All electrical work to comply with IS 732 wiring standards</li>
+            <li>Individual switching and control systems where required</li>
+        </ul>
+
+        <div class="requirement-box">
+            <h4>Installation Safety Requirements</h4>
+            <ul>
+                <li>All installation team members must have safety training certificates</li>
+                <li>Use of appropriate PPE mandatory during installation</li>
+                <li>Traffic management plan required for public area work</li>
+                <li>Structural load calculations for all mounting systems</li>
+                <li>Post-installation safety inspections and sign-off</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>6. QUALITY ASSURANCE & TESTING</h2>
+        
+        <h3>6.1 Material Testing</h3>
+        <ul>
+            <li>UV resistance testing for outdoor materials (ASTM G154)</li>
+            <li>Fire resistance testing as per IS 1644</li>
+            <li>Adhesion testing for graphic applications</li>
+            <li>Color fastness testing (ISO 105)</li>
+            <li>Impact resistance testing for high-traffic areas</li>
+        </ul>
+
+        <h3>6.2 Installation Quality Checks</h3>
+        <table class="spec-table">
+            <tr>
+                <th>Check Point</th>
+                <th>Standard/Tolerance</th>
+                <th>Method</th>
+            </tr>
+            <tr>
+                <td>Sign Alignment</td>
+                <td>±2mm from specified position</td>
+                <td>Laser level measurement</td>
+            </tr>
+            <tr>
+                <td>Illumination Levels</td>
+                <td>Min 50 lux at reading distance</td>
+                <td>Digital lux meter</td>
+            </tr>
+            <tr>
+                <td>Mounting Security</td>
+                <td>No movement under 50kg lateral force</td>
+                <td>Manual testing with calibrated gauge</td>
+            </tr>
+            <tr>
+                <td>Electrical Safety</td>
+                <td>As per IS 732 standards</td>
+                <td>Insulation resistance testing</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>7. WARRANTY & MAINTENANCE</h2>
+        
+        <h3>7.1 Warranty Terms</h3>
+        <ul>
+            <li><strong>Manufacturing Defects:</strong> 2 years from installation completion</li>
+            <li><strong>LED Systems:</strong> 1 year or 8,760 hours whichever is earlier</li>
+            <li><strong>Structural Mounting:</strong> 5 years for design and installation</li>
+            <li><strong>Material Warranty:</strong> As per manufacturer's specifications</li>
+            <li><strong>Exclusions:</strong> Physical damage, vandalism, natural disasters</li>
+        </ul>
+
+        <h3>7.2 Maintenance Schedule</h3>
+        <table class="spec-table">
+            <tr>
+                <th>Maintenance Activity</th>
+                <th>Frequency</th>
+                <th>Responsibility</th>
+            </tr>
+            <tr>
+                <td>Visual Inspection</td>
+                <td>Monthly</td>
+                <td>Client facility team</td>
+            </tr>
+            <tr>
+                <td>Cleaning (Indoor)</td>
+                <td>Quarterly</td>
+                <td>Client cleaning staff</td>
+            </tr>
+            <tr>
+                <td>Cleaning (Outdoor)</td>
+                <td>Monthly</td>
+                <td>Professional cleaning service</td>
+            </tr>
+            <tr>
+                <td>Electrical Testing</td>
+                <td>Annual</td>
+                <td>Certified electrician</td>
+            </tr>
+            <tr>
+                <td>Structural Inspection</td>
+                <td>Annual</td>
+                <td>SignageWorks.in technician</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>8. COMPLIANCE & STANDARDS</h2>
+        
+        <div class="compliance-box">
+            <h4>Mandatory Compliance Standards</h4>
+            <ul>
+                <li><strong>IS 9457:2005</strong> - Safety signs including fire safety signs</li>
+                <li><strong>IS 2190:1992</strong> - Selection, installation and maintenance of automatic fire extinguishing systems</li>
+                <li><strong>NBCC 2016</strong> - National Building Code requirements</li>
+                <li><strong>Rights of Persons with Disabilities Act 2016</strong> - Accessibility requirements</li>
+                <li><strong>IS 732</strong> - Code of practice for electrical wiring installations</li>
+                <li><strong>Local Municipal Regulations</strong> - Building and fire safety approvals</li>
+            </ul>
+        </div>
+
+        <h3>8.1 Accessibility Requirements</h3>
+        <ul>
+            <li>Braille signage for critical areas (elevators, restrooms, emergency exits)</li>
+            <li>High contrast color combinations (minimum 70% contrast ratio)</li>
+            <li>Tactile elements for room identification signs</li>
+            <li>Mounting heights: 1400-1500mm to centerline for accessibility</li>
+            <li>Clear space requirements: minimum 750mm in front of signs</li>
+        </ul>
+    </div>
+
+    <div class="approval-section">
+        <h3>PROJECT SPECIFICATION APPROVAL</h3>
+        
+        <div class="signature-grid">
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <strong>Technical Manager</strong><br>
+                <small>SignageWorks.in</small><br>
+                <small>Date: ___________</small>
+            </div>
+            
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <strong>Design Head</strong><br>
+                <small>SignageWorks.in</small><br>
+                <small>Date: ___________</small>
+            </div>
+            
+            <div class="signature-box">
+                <div class="signature-line"></div>
+                <strong>Client Representative</strong><br>
+                <small><span class="editable">Organization Name</span></small><br>
+                <small>Date: ___________</small>
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin-top: 30px; font-size: 12px; color: #4a5568;">
+            This specification document forms the basis for signage design, manufacturing, and installation.<br>
+            Any deviations from this specification require written approval from all parties.
+        </p>
+    </div>
+</body>
+</html>

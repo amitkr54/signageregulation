@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Exit Sign Examples</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20mm;
+            background: white;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #dc2626;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #991b1b;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+        
+        .sign-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .sign-example {
+            border: 2px solid #dc2626;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sign-header {
+            background: #dc2626;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .sign-display {
+            padding: 20px;
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .fire-exit-sign {
+            background: #16a34a;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .fire-exit-large {
+            font-size: 24px;
+            padding: 20px 35px;
+        }
+        
+        .fire-exit-small {
+            font-size: 14px;
+            padding: 10px 15px;
+        }
+        
+        .exit-arrow {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .sign-specs {
+            background: #f8fafc;
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 12px;
+            color: #4b5563;
+        }
+        
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .emergency-red {
+            background: #dc2626;
+        }
+        
+        .assembly-blue {
+            background: #2563eb;
+        }
+        
+        .direction-orange {
+            background: #ea580c;
+        }
+        
+        .illuminated {
+            position: relative;
+            overflow: visible;
+        }
+        
+        .illuminated::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 8px;
+            z-index: -1;
+        }
+        
+        .multi-language {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .hindi-text {
+            font-size: 16px;
+            font-weight: normal;
+        }
+        
+        .braille-dots {
+            margin-top: 10px;
+            font-size: 20px;
+            letter-spacing: 3px;
+            color: #6b7280;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .category-header {
+            background: #1f2937;
+            color: white;
+            padding: 15px 20px;
+            margin: 30px 0 20px 0;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .single-sign {
+            max-width: 400px;
+            margin: 0 auto 30px auto;
+        }
+        
+        .dimensions-guide {
+            background: #fef3cd;
+            border: 2px solid #f59e0b;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 8px;
+        }
+        
+        .dimensions-guide h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+        }
+        
+        .size-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .size-table th,
+        .size-table td {
+            border: 1px solid #d1d5db;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 12px;
+        }
+        
+        .size-table th {
+            background: #f3f4f6;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                padding: 10mm;
+            }
+            
+            .sign-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        
+        .compliance-note {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        
+        .compliance-note h4 {
+            color: #065f46;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Fire Exit Sign Examples</h1>
+        <div class="subtitle">IS 9457:2005 Compliant Emergency Exit Signage Collection</div>
+        <div class="subtitle" style="margin-top: 5px; color: #dc2626; font-weight: bold;">SignageWorks.in Professional Templates</div>
+    </div>
+
+    <div class="compliance-note">
+        <h4>IS 9457:2005 Compliance Requirements</h4>
+        <p>All fire exit signs must comply with IS 9457:2005 standards. Key requirements include green background with white text/symbols, appropriate size ratios, illumination capabilities, and proper mounting heights (2.1-2.4m above floor level).</p>
+    </div>
+
+    <div class="category-header">Standard Fire Exit Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Basic Fire Exit - Left Arrow</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign">
+                    <span class="exit-arrow">←</span>
+                    <span>FIRE EXIT</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>300 x 150 mm</span></div>
+                <div class="spec-row"><span>Material:</span><span>Acrylic / ACP</span></div>
+                <div class="spec-row"><span>Color:</span><span>Green (Pantone 347C)</span></div>
+                <div class="spec-row"><span>Text:</span><span>White, Bold</span></div>
+                <div class="spec-row"><span>Standard:</span><span>IS 9457:2005</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Basic Fire Exit - Right Arrow</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign">
+                    <span>FIRE EXIT</span>
+                    <span class="exit-arrow">→</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>300 x 150 mm</span></div>
+                <div class="spec-row"><span>Material:</span><span>Acrylic / ACP</span></div>
+                <div class="spec-row"><span>Color:</span><span>Green (Pantone 347C)</span></div>
+                <div class="spec-row"><span>Text:</span><span>White, Bold</span></div>
+                <div class="spec-row"><span>Standard:</span><span>IS 9457:2005</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Fire Exit - Straight Arrow</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign">
+                    <span class="exit-arrow">↑</span>
+                    <div>FIRE EXIT</div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200 x 200 mm</span></div>
+                <div class="spec-row"><span>Material:</span><span>Acrylic</span></div>
+                <div class="spec-row"><span>Color:</span><span>Green (Pantone 347C)</span></div>
+                <div class="spec-row"><span>Text:</span><span>White, Bold</span></div>
+                <div class="spec-row"><span>Mounting:</span><span>Wall/Ceiling</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Emergency Exit - Symbol Only</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign">
+                    <span class="exit-arrow" style="font-size: 36px;">⭢</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>150 x 150 mm</span></div>
+                <div class="spec-row"><span>Material:</span><span>Acrylic</span></div>
+                <div class="spec-row"><span>Color:</span><span>Green (Pantone 347C)</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>White Running Man</span></div>
+                <div class="spec-row"><span>Application:</span><span>International Symbol</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-header">Illuminated Fire Exit Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">LED Illuminated Exit - Left</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign illuminated">
+                    <span class="exit-arrow">←</span>
+                    <span>FIRE EXIT</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>350 x 175 mm</span></div>
+                <div class="spec-row"><span>Material:</span><span>LED Backlit Acrylic</span></div>
+                <div class="spec-row"><span>Power:</span><span>12V LED, 3W</span></div>
+                <div class="spec-row"><span>Backup:</span><span>3 Hour Battery</span></div>
+                <div class="spec-row"><span>Lumens:</span><span>150 lm minimum</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Edge-lit Emergency Exit</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign illuminated">
+                    <span>EMERGENCY</span>
+                    <div style="font-size: 14px;">EXIT</div>
+                    <span class="exit-arrow">→</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>400 x 200 mm</span></div>
+                <div class="spec-row"><span>Material:</span><span>Edge-lit Acrylic</span></div>
+                <div class="spec-row"><span>Power:</span><span>24V LED, 5W</span></div>
+                <div class="spec-row"><span>Backup:</span><span>3 Hour Battery</span></div>
+                <div class="spec-row"><span>IP Rating:</span><span>IP65 (if required)</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="category-header">Multi-Language Fire Exit Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">English + Hindi Fire Exit</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign multi-language">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="exit-arrow">←</span>
+                        <span>FIRE EXIT</span>
+                    </div>
+                    <div class="hindi-text">आग निकास</div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>350 x 200 mm</span></div>
+                <div class="spec-row"><span>Languages:</span><span>English + Hindi</span></div>
+                <div class="spec-row"><span>Font Size:</span><span>English: 18pt, Hindi: 14pt</span></div>
+                <div class="spec-row"><span>Compliance:</span><span>Multi-lingual Policy</span></div>
+                <div class="spec-row"><span>Material:</span><span>Acrylic / ACP</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Regional Language Exit Sign</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign multi-language">
+                    <div>FIRE EXIT</div>
+                    <div class="hindi-text">अग्निशमन निकास</div>
+                    <div style="font-size: 14px;">[Regional Text]</div>
+                    <div class="exit-arrow">→</div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>400 x 250 mm</span></div>
+                <div class="spec-row"><span>Languages:</span><span>English + 2 Regional</span></div>
+                <div class="spec-row"><span>Application:</span><span>Multi-cultural Areas</span></div>
+                <div class="spec-row"><span>Mounting:</span><span>Wall Bracket</span></div>
+                <div class="spec-row"><span>Visibility:</span><span>50m distance</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-header">Accessible Fire Exit Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Braille Accessible Exit</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign">
+                    <span class="exit-arrow">←</span>
+                    <div>
+                        <div>FIRE EXIT</div>
+                        <div class="braille-dots">⠋⠊⠗⠑ ⠑⠭⠊⠞</div>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>350 x 200 mm</span></div>
+                <div class="spec-row"><span>Features:</span><span>Raised Braille Text</span></div>
+                <div class="spec-row"><span>Height:</span><span>1400-1500mm (Center)</span></div>
+                <div class="spec-row"><span>Compliance:</span><span>Disabilities Act 2016</span></div>
+                <div class="spec-row"><span>Material:</span><span>Tactile Acrylic</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">High Contrast Exit</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign" style="background: #000000; color: #ffffff; border: 3px solid #ffffff;">
+                    <span class="exit-arrow">→</span>
+                    <span style="font-weight: 900;">FIRE EXIT</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>300 x 150 mm</span></div>
+                <div class="spec-row"><span>Contrast:</span><span>High (90% ratio)</span></div>
+                <div class="spec-row"><span>Application:</span><span>Low Vision Users</span></div>
+                <div class="spec-row"><span>Font Weight:</span><span>Extra Bold</span></div>
+                <div class="spec-row"><span>Border:</span><span>White, 3mm</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-header">Specialized Fire Exit Applications</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Photoluminescent Exit</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign" style="background: #4ade80; box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);">
+                    <span class="exit-arrow">←</span>
+                    <span>FIRE EXIT</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>300 x 150 mm</span></div>
+                <div class="spec-row"><span>Material:</span><span>Photoluminescent</span></div>
+                <div class="spec-row"><span>Glow:</span><span>8+ hours after charging</span></div>
+                <div class="spec-row"><span>Power:</span><span>No electricity required</span></div>
+                <div class="spec-row"><span>Application:</span><span>Emergency backup</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Ceiling Mounted Exit</div>
+            <div class="sign-display">
+                <div class="fire-exit-sign" style="transform: rotate(0deg); position: relative;">
+                    <div style="text-align: center;">
+                        <div class="exit-arrow" style="font-size: 30px;">↓</div>
+                        <div>FIRE EXIT</div>
+                        <div style="font-size: 12px; margin-top: 5px;">BELOW</div>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200 x 200 mm</span></div>
+                <div class="spec-row"><span>Mounting:</span><span>Ceiling Suspended</span></div>
+                <div class="spec-row"><span>Visibility:</span><span>360° viewing</span></div>
+                <div class="spec-row"><span>Height:</span><span>2.5-3.0m above floor</span></div>
+                <div class="spec-row"><span>Chain/Rod:</span><span>Adjustable length</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="dimensions-guide">
+        <h3>Standard Dimensions Guide</h3>
+        <p>Fire exit signs must conform to IS 9457:2005 dimensional requirements for optimal visibility and compliance.</p>
+        
+        <table class="size-table">
+            <thead>
+                <tr>
+                    <th>Application</th>
+                    <th>Size (mm)</th>
+                    <th>Viewing Distance</th>
+                    <th>Text Height</th>
+                    <th>Arrow Size</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Standard Door Exit</td>
+                    <td>300 x 150</td>
+                    <td>Up to 30m</td>
+                    <td>25mm minimum</td>
+                    <td>40mm minimum</td>
+                </tr>
+                <tr>
+                    <td>Large Format</td>
+                    <td>400 x 200</td>
+                    <td>Up to 50m</td>
+                    <td>35mm minimum</td>
+                    <td>50mm minimum</td>
+                </tr>
+                <tr>
+                    <td>Compact Exit</td>
+                    <td>200 x 100</td>
+                    <td>Up to 15m</td>
+                    <td>18mm minimum</td>
+                    <td>25mm minimum</td>
+                </tr>
+                <tr>
+                    <td>Ceiling Mount</td>
+                    <td>200 x 200</td>
+                    <td>360° viewing</td>
+                    <td>20mm minimum</td>
+                    <td>35mm minimum</td>
+                </tr>
+                <tr>
+                    <td>International Symbol</td>
+                    <td>150 x 150</td>
+                    <td>Up to 25m</td>
+                    <td>Symbol only</td>
+                    <td>100mm height</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="compliance-note">
+        <h4>Installation Guidelines</h4>
+        <ul style="margin: 10px 0; padding-left: 20px; font-size: 13px;">
+            <li><strong>Height:</strong> Mount 2.1-2.4m above finished floor level</li>
+            <li><strong>Illumination:</strong> Minimum 50 lux at sign face, 3-hour emergency backup</li>
+            <li><strong>Visibility:</strong> Unobstructed view from all approach angles</li>
+            <li><strong>Spacing:</strong> Maximum 30m between directional signs in corridors</li>
+            <li><strong>Maintenance:</strong> Monthly visual inspection, annual electrical testing</li>
+            <li><strong>Documentation:</strong> Keep compliance certificates and installation records</li>
+        </ul>
+    </div>
+
+    <div style="margin-top: 40px; text-align: center; font-size: 12px; color: #6b7280; border-top: 1px solid #e5e7eb; padding-top: 20px;">
+        <p><strong>SignageWorks.in</strong> | Professional Fire Safety Signage Manufacturing</p>
+        <p>All designs comply with IS 9457:2005 and relevant Indian safety standards</p>
+        <p>For custom requirements and installation services: info@signageworks.in</p>
+    </div>
+</body>
+</html>

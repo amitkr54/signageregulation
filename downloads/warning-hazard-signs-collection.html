@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warning & Hazard Signs Collection</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20mm;
+            background: white;
+            color: #333;
+            line-height: 1.4;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #f59e0b;
+            padding-bottom: 20px;
+        }
+        
+        .header h1 {
+            color: #92400e;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+        }
+        
+        .sign-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .sign-example {
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sign-header {
+            background: #f59e0b;
+            color: white;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .sign-display {
+            padding: 15px;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .warning-sign {
+            background: #fbbf24;
+            color: #1f2937;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border: 2px solid #f59e0b;
+        }
+        
+        .danger-sign {
+            background: #dc2626;
+            color: white;
+            border: 2px solid #991b1b;
+        }
+        
+        .electrical-sign {
+            background: #fbbf24;
+            color: #1f2937;
+            border: 2px solid #f59e0b;
+        }
+        
+        .chemical-sign {
+            background: #f97316;
+            color: white;
+            border: 2px solid #ea580c;
+        }
+        
+        .biological-sign {
+            background: #7c2d12;
+            color: white;
+            border: 2px solid #451a03;
+        }
+        
+        .radiation-sign {
+            background: #fbbf24;
+            color: #1f2937;
+            border: 2px solid #f59e0b;
+        }
+        
+        .prohibition-sign {
+            background: white;
+            color: #dc2626;
+            border: 3px solid #dc2626;
+            position: relative;
+        }
+        
+        .prohibition-sign::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #dc2626;
+            transform: translateY(-50%) rotate(-45deg);
+            z-index: 2;
+        }
+        
+        .warning-symbol {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .large-symbol {
+            font-size: 24px;
+        }
+        
+        .sign-specs {
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 10px;
+            color: #4b5563;
+        }
+        
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+        }
+        
+        .category-header {
+            background: #1f2937;
+            color: white;
+            padding: 12px 20px;
+            margin: 25px 0 15px 0;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .page-break {
+            page-break-before: always;
+        }
+        
+        .info-box {
+            background: #fef3cd;
+            border: 2px solid #f59e0b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+        
+        .info-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+        
+        .symbol-guide {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .symbol-card {
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+        }
+        
+        .symbol-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        
+        .symbol-name {
+            font-size: 10px;
+            color: #4b5563;
+        }
+        
+        @media print {
+            body {
+                padding: 10mm;
+            }
+            
+            .sign-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+        
+        .multi-line-text {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            line-height: 1.2;
+        }
+        
+        .triangle-warning {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 20px solid #fbbf24;
+            position: relative;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .triangle-warning::after {
+            content: '!';
+            position: absolute;
+            bottom: -18px;
+            left: -3px;
+            color: #1f2937;
+            font-weight: bold;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Warning & Hazard Signs Collection</h1>
+        <div class="subtitle">Comprehensive Safety Warning Signage for Industrial & Commercial Use</div>
+        <div class="subtitle" style="margin-top: 5px; color: #f59e0b; font-weight: bold;">SignageWorks.in Professional Templates</div>
+    </div>
+
+    <div class="info-box">
+        <h4>Safety Standards Compliance</h4>
+        <p>All warning and hazard signs comply with IS standards, GHS (Globally Harmonized System) symbols, and Indian Factory Act requirements. Colors, symbols, and text follow international safety communication standards.</p>
+    </div>
+
+    <div class="category-header">General Warning Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Danger - General</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign">
+                    <span class="warning-symbol">⚠</span>
+                    <span>DANGER</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Red/White</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Warning Triangle</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Caution</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <div class="triangle-warning"></div>
+                    <span>CAUTION</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Yellow/Black</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Triangle + !</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Warning - General</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol">⚠</span>
+                    <span>WARNING</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Yellow/Black</span></div>
+                <div class="spec-row"><span>Standard:</span><span>IS 9457:2005</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Notice</div>
+            <div class="sign-display">
+                <div class="warning-sign" style="background: #3b82f6; color: white; border-color: #1d4ed8;">
+                    <span class="warning-symbol">ℹ</span>
+                    <span>NOTICE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Blue/White</span></div>
+                <div class="spec-row"><span>Type:</span><span>Information</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Authorized Personnel</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign multi-line-text">
+                    <span>AUTHORIZED</span>
+                    <span>PERSONNEL ONLY</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>250x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Red/White</span></div>
+                <div class="spec-row"><span>Access:</span><span>Restricted</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Do Not Enter</div>
+            <div class="sign-display">
+                <div class="warning-sign prohibition-sign multi-line-text">
+                    <span>DO NOT</span>
+                    <span>ENTER</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Red Circle/Slash</span></div>
+                <div class="spec-row"><span>Type:</span><span>Prohibition</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-header">Electrical Hazard Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">High Voltage</div>
+            <div class="sign-display">
+                <div class="warning-sign electrical-sign">
+                    <span class="warning-symbol large-symbol">⚡</span>
+                    <div class="multi-line-text">
+                        <span>HIGH VOLTAGE</span>
+                        <span style="font-size: 10px;">DANGER</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>Voltage:</span><span>1kV & Above</span></div>
+                <div class="spec-row"><span>Standard:</span><span>IS 1885</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Electrical Danger</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign">
+                    <span class="warning-symbol">⚡</span>
+                    <div class="multi-line-text">
+                        <span>ELECTRICAL</span>
+                        <span>DANGER</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Red/White</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Lightning Bolt</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Live Wire</div>
+            <div class="sign-display">
+                <div class="warning-sign electrical-sign">
+                    <span class="warning-symbol">⚡</span>
+                    <span>LIVE WIRE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>150x100mm</span></div>
+                <div class="spec-row"><span>Application:</span><span>Cable/Wire</span></div>
+                <div class="spec-row"><span>Material:</span><span>Self-adhesive</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Switch Off Power</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol">🔌</span>
+                    <div class="multi-line-text">
+                        <span>SWITCH OFF</span>
+                        <span>POWER</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Type:</span><span>Instruction</span></div>
+                <div class="spec-row"><span>Color:</span><span>Yellow/Black</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">No Electrical Work</div>
+            <div class="sign-display">
+                <div class="warning-sign prohibition-sign">
+                    <span class="warning-symbol">⚡</span>
+                    <div class="multi-line-text">
+                        <span style="font-size: 10px;">NO ELECTRICAL</span>
+                        <span>WORK</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Type:</span><span>Prohibition</span></div>
+                <div class="spec-row"><span>Color:</span><span>Red/White</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Electrical Panel</div>
+            <div class="sign-display">
+                <div class="warning-sign electrical-sign">
+                    <span class="warning-symbol">⚡</span>
+                    <div class="multi-line-text">
+                        <span>ELECTRICAL</span>
+                        <span>PANEL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x100mm</span></div>
+                <div class="spec-row"><span>Mounting:</span><span>Panel door</span></div>
+                <div class="spec-row"><span>Material:</span><span>Vinyl/Acrylic</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-header">Chemical & Hazardous Material Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Toxic Material</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign">
+                    <span class="warning-symbol large-symbol">☠</span>
+                    <span>TOXIC</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>GHS:</span><span>Category 1-3</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Skull & Crossbones</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Corrosive</div>
+            <div class="sign-display">
+                <div class="warning-sign chemical-sign">
+                    <span class="warning-symbol large-symbol">🧪</span>
+                    <span>CORROSIVE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>GHS:</span><span>Corrosion Symbol</span></div>
+                <div class="spec-row"><span>Color:</span><span>Orange/Black</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Flammable</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign">
+                    <span class="warning-symbol large-symbol">🔥</span>
+                    <span>FLAMMABLE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>Class:</span><span>Fire Hazard</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Flame</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Oxidizer</div>
+            <div class="sign-display">
+                <div class="warning-sign chemical-sign">
+                    <span class="warning-symbol large-symbol">⭕</span>
+                    <span>OXIDIZER</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>GHS:</span><span>Flame over Circle</span></div>
+                <div class="spec-row"><span>Hazard:</span><span>Fire Enhancement</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Explosive</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign">
+                    <span class="warning-symbol large-symbol">💥</span>
+                    <span>EXPLOSIVE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Exploding Bomb</span></div>
+                <div class="spec-row"><span>Class:</span><span>Explosive Material</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Gas Cylinder</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol large-symbol">🗂</span>
+                    <div class="multi-line-text">
+                        <span>GAS</span>
+                        <span>CYLINDER</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>150x200mm</span></div>
+                <div class="spec-row"><span>Type:</span><span>Compressed Gas</span></div>
+                <div class="spec-row"><span>Mounting:</span><span>Cylinder rack</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="category-header">Biological & Health Hazards</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Biohazard</div>
+            <div class="sign-display">
+                <div class="warning-sign biological-sign">
+                    <span class="warning-symbol large-symbol">☣</span>
+                    <span>BIOHAZARD</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Biohazard Symbol</span></div>
+                <div class="spec-row"><span>Application:</span><span>Laboratory/Medical</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Infectious Material</div>
+            <div class="sign-display">
+                <div class="warning-sign biological-sign multi-line-text">
+                    <span>INFECTIOUS</span>
+                    <span>MATERIAL</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>250x150mm</span></div>
+                <div class="spec-row"><span>Color:</span><span>Brown/White</span></div>
+                <div class="spec-row"><span>Standard:</span><span>WHO Guidelines</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Radiation Area</div>
+            <div class="sign-display">
+                <div class="warning-sign radiation-sign">
+                    <span class="warning-symbol large-symbol">☢</span>
+                    <span>RADIATION</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x200mm</span></div>
+                <div class="spec-row"><span>Authority:</span><span>AERB Approved</span></div>
+                <div class="spec-row"><span>Symbol:</span><span>Radiation Trefoil</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Laser Danger</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign">
+                    <span class="warning-symbol large-symbol">🔴</span>
+                    <div class="multi-line-text">
+                        <span>LASER</span>
+                        <span style="font-size: 10px;">DANGER</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Class:</span><span>Class 3B/4</span></div>
+                <div class="spec-row"><span>Warning:</span><span>Eye/Skin Hazard</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Asbestos Warning</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign multi-line-text">
+                    <span>ASBESTOS</span>
+                    <span style="font-size: 10px;">CANCER HAZARD</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>250x150mm</span></div>
+                <div class="spec-row"><span>Health:</span><span>Carcinogen</span></div>
+                <div class="spec-row"><span>PPE:</span><span>Respirator Required</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">X-Ray in Use</div>
+            <div class="sign-display">
+                <div class="warning-sign radiation-sign multi-line-text">
+                    <span>X-RAY</span>
+                    <span>IN USE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Type:</span><span>Medical/Industrial</span></div>
+                <div class="spec-row"><span>Control:</span><span>Access Restricted</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-header">Physical Hazard Signs</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Hot Surface</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign">
+                    <span class="warning-symbol large-symbol">🔥</span>
+                    <div class="multi-line-text">
+                        <span>HOT</span>
+                        <span>SURFACE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>150x150mm</span></div>
+                <div class="spec-row"><span>Temperature:</span><span>>60°C</span></div>
+                <div class="spec-row"><span>Hazard:</span><span>Burn Risk</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Sharp Objects</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol large-symbol">🔪</span>
+                    <div class="multi-line-text">
+                        <span>SHARP</span>
+                        <span>OBJECTS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>150x150mm</span></div>
+                <div class="spec-row"><span>Hazard:</span><span>Cut/Puncture</span></div>
+                <div class="spec-row"><span>PPE:</span><span>Gloves Required</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Heavy Machinery</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol large-symbol">⚙</span>
+                    <div class="multi-line-text">
+                        <span>HEAVY</span>
+                        <span>MACHINERY</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Hazard:</span><span>Moving Parts</span></div>
+                <div class="spec-row"><span>Area:</span><span>Industrial Zone</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Overhead Hazard</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol large-symbol">⬇</span>
+                    <div class="multi-line-text">
+                        <span>OVERHEAD</span>
+                        <span>HAZARD</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Hazard:</span><span>Falling Objects</span></div>
+                <div class="spec-row"><span>PPE:</span><span>Hard Hat Required</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Slippery Surface</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol large-symbol">🚶</span>
+                    <div class="multi-line-text">
+                        <span>SLIPPERY</span>
+                        <span>SURFACE</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Hazard:</span><span>Slip/Fall Risk</span></div>
+                <div class="spec-row"><span>Footwear:</span><span>Non-slip Required</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Confined Space</div>
+            <div class="sign-display">
+                <div class="warning-sign danger-sign multi-line-text">
+                    <span>CONFINED</span>
+                    <span>SPACE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Entry:</span><span>Permit Required</span></div>
+                <div class="spec-row"><span>Hazard:</span><span>Multiple Risks</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-header">Environmental & Waste Hazards</div>
+
+    <div class="sign-grid">
+        <div class="sign-example">
+            <div class="sign-header">Hazardous Waste</div>
+            <div class="sign-display">
+                <div class="warning-sign chemical-sign multi-line-text">
+                    <span>HAZARDOUS</span>
+                    <span>WASTE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Rules:</span><span>HWM Rules 2016</span></div>
+                <div class="spec-row"><span>Disposal:</span><span>Authorized Only</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Biomedical Waste</div>
+            <div class="sign-display">
+                <div class="warning-sign biological-sign multi-line-text">
+                    <span>BIOMEDICAL</span>
+                    <span>WASTE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Rules:</span><span>BMW Rules 2016</span></div>
+                <div class="spec-row"><span>Color:</span><span>Category Coded</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Chemical Storage</div>
+            <div class="sign-display">
+                <div class="warning-sign chemical-sign multi-line-text">
+                    <span>CHEMICAL</span>
+                    <span>STORAGE</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Ventilation:</span><span>Required</span></div>
+                <div class="spec-row"><span>Access:</span><span>Trained Personnel</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Contaminated Area</div>
+            <div class="sign-display">
+                <div class="warning-sign biological-sign multi-line-text">
+                    <span>CONTAMINATED</span>
+                    <span>AREA</span>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>250x150mm</span></div>
+                <div class="spec-row"><span>PPE:</span><span>Full Protection</span></div>
+                <div class="spec-row"><span>Entry:</span><span>Authorized Only</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Noise Hazard</div>
+            <div class="sign-display">
+                <div class="warning-sign">
+                    <span class="warning-symbol large-symbol">🔊</span>
+                    <div class="multi-line-text">
+                        <span>NOISE</span>
+                        <span>HAZARD</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Level:</span><span>>85 dB(A)</span></div>
+                <div class="spec-row"><span>PPE:</span><span>Ear Protection</span></div>
+            </div>
+        </div>
+
+        <div class="sign-example">
+            <div class="sign-header">Eye Wash Station</div>
+            <div class="sign-display">
+                <div class="warning-sign" style="background: #10b981; color: white; border-color: #059669;">
+                    <span class="warning-symbol large-symbol">👁</span>
+                    <div class="multi-line-text">
+                        <span>EYE WASH</span>
+                        <span>STATION</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sign-specs">
+                <div class="spec-row"><span>Size:</span><span>200x150mm</span></div>
+                <div class="spec-row"><span>Type:</span><span>Emergency Equipment</span></div>
+                <div class="spec-row"><span>Color:</span><span>Green/White</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="info-box">
+        <h4>Symbol Reference Guide</h4>
+        <p>Common hazard symbols used in warning signage (GHS & International Standards):</p>
+    </div>
+
+    <div class="symbol-guide">
+        <div class="symbol-card">
+            <div class="symbol-icon">⚠</div>
+            <div class="symbol-name">General Warning</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">⚡</div>
+            <div class="symbol-name">Electrical Hazard</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">🔥</div>
+            <div class="symbol-name">Fire/Heat</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">☠</div>
+            <div class="symbol-name">Toxic</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">☣</div>
+            <div class="symbol-name">Biohazard</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">☢</div>
+            <div class="symbol-name">Radiation</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">🧪</div>
+            <div class="symbol-name">Corrosive</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">💥</div>
+            <div class="symbol-name">Explosive</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">⭕</div>
+            <div class="symbol-name">Oxidizer</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">🔊</div>
+            <div class="symbol-name">Noise Hazard</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">⚙</div>
+            <div class="symbol-name">Machinery</div>
+        </div>
+        <div class="symbol-card">
+            <div class="symbol-icon">👁</div>
+            <div class="symbol-name">Eye Protection</div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <h4>Color Code Standards</h4>
+        <ul style="margin: 10px 0; padding-left: 20px; font-size: 12px;">
+            <li><strong>Red:</strong> Danger, prohibition, fire equipment, stop</li>
+            <li><strong>Yellow/Amber:</strong> Caution, warning, temporary hazard</li>
+            <li><strong>Blue:</strong> Mandatory action, information, PPE requirement</li>
+            <li><strong>Green:</strong> Safe condition, emergency escape, first aid</li>
+            <li><strong>Orange:</strong> Dangerous parts of machines, energized equipment</li>
+            <li><strong>Purple:</strong> Radiation hazard areas and equipment</li>
+            <li><strong>Black/White:</strong> Traffic, housekeeping, directional</li>
+        </ul>
+    </div>
+
+    <div class="info-box">
+        <h4>Installation Guidelines</h4>
+        <ul style="margin: 10px 0; padding-left: 20px; font-size: 12px;">
+            <li>Mount at eye level (1.4-1.7m height) for maximum visibility</li>
+            <li>Ensure adequate lighting (minimum 50 lux) for clear readability</li>
+            <li>Use weather-resistant materials for outdoor applications</li>
+            <li>Position signs to avoid obstruction by equipment or personnel</li>
+            <li>Update signs immediately when hazard conditions change</li>
+            <li>Maintain multilingual signage in diverse workplace environments</li>
+            <li>Regular inspection and replacement of damaged or faded signs</li>
+        </ul>
+    </div>
+
+    <div style="margin-top: 40px; text-align: center; font-size: 12px; color: #6b7280; border-top: 1px solid #e5e7eb; padding-top: 20px;">
+        <p><strong>SignageWorks.in</strong> | Professional Warning & Hazard Signage Manufacturing</p>
+        <p>All designs comply with IS standards, GHS symbols, and Indian safety regulations</p>
+        <p>Custom hazard signs available | Contact: info@signageworks.in</p>
+    </div>
+</body>
+</html>

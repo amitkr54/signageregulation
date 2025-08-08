@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags - TEST PAGE -->
+    <title>Test Page - SignageWorks | Global Header Footer Test</title>
+    <meta name="description" content="This is a test page to verify the global header and footer system is working correctly with unique SEO meta tags.">
+    <meta name="keywords" content="test page, signage, header, footer, SEO">
+    <meta name="author" content="SignageWorks">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Test Page - SignageWorks">
+    <meta property="og:description" content="Testing the global header and footer system with unique SEO meta tags.">
+    <meta property="og:image" content="https://signageworks.co.in/images/og-test.jpg">
+    <meta property="og:url" content="https://signageworks.co.in/test-page.html">
+    <meta property="og:type" content="website">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://signageworks.co.in/test-page.html">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/navigation.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        
+        .test-content {
+            background: white;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .status {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .debug-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 4px;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .test-button {
+            background: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        
+        .test-button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header placeholder - This should load the global header -->
+    <div id="header-placeholder">
+        <div class="status warning">⏳ Loading header...</div>
+    </div>
+
+    <!-- Main content -->
+    <main>
+        <div class="container">
+            <div class="test-content">
+                <h1>🧪 Global Header/Footer Test Page</h1>
+                
+                <div id="test-status" class="status warning">
+                    🔄 Initializing tests...
+                </div>
+                
+                <h2>What this page tests:</h2>
+                <ul>
+                    <li>✅ Unique SEO meta tags per page (check page source)</li>
+                    <li>🔄 Global header loading via JavaScript</li>
+                    <li>🔄 Global footer loading via JavaScript</li>
+                    <li>🔄 Active navigation highlighting</li>
+                    <li>🔄 Mobile menu functionality</li>
+                </ul>
+                
+                <h2>Debug Information:</h2>
+                <div id="debug-info" class="debug-info">
+                    Loading debug information...
+                </div>
+                
+                <h2>Manual Tests:</h2>
+                <button class="test-button" onclick="checkHeaderFooter()">Check Header/Footer</button>
+                <button class="test-button" onclick="testNavigation()">Test Navigation</button>
+                <button class="test-button" onclick="testMobile()">Test Mobile Menu</button>
+                
+                <div id="manual-test-results"></div>
+                
+                <h2>Current Page Info:</h2>
+                <ul>
+                    <li><strong>Page Title:</strong> <span id="page-title"></span></li>
+                    <li><strong>Meta Description:</strong> <span id="page-description"></span></li>
+                    <li><strong>Current URL:</strong> <span id="current-url"></span></li>
+                    <li><strong>File Name:</strong> <span id="file-name"></span></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer placeholder - This should load the global footer -->
+    <div id="footer-placeholder">
+        <div class="status warning">⏳ Loading footer...</div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/includes.js"></script>
+    
+    <script>
+        // Test script to verify everything works
+        let testsCompleted = 0;
+        let testResults = [];
+        
+        // Update page info
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('page-title').textContent = document.title;
+            document.getElementById('page-description').textContent = 
+                document.querySelector('meta[name="description"]')?.content || 'Not found';
+            document.getElementById('current-url').textContent = window.location.href;
+            document.getElementById('file-name').textContent = 
+                window.location.pathname.split('/').pop() || 'index.html';
+            
+            // Start monitoring for component loads
+            monitorComponentLoading();
+        });
+        
+        function monitorComponentLoading() {
+            let headerLoaded = false;
+            let footerLoaded = false;
+            
+            // Check every 500ms for 10 seconds
+            let checks = 0;
+            const maxChecks = 20;
+            
+            const interval = setInterval(() => {
+                checks++;
+                
+                const headerContent = document.getElementById('header-placeholder').innerHTML;
+                const footerContent = document.getElementById('footer-placeholder').innerHTML;
+                
+                if (!headerLoaded && headerContent.includes('<header>')) {
+                    headerLoaded = true;
+                    testResults.push('✅ Header loaded successfully');
+                }
+                
+                if (!footerLoaded && footerContent.includes('<footer>')) {
+                    footerLoaded = true;
+                    testResults.push('✅ Footer loaded successfully');
+                }
+                
+                if (headerLoaded && footerLoaded) {
+                    clearInterval(interval);
+                    updateTestStatus('success', '✅ All components loaded successfully!');
+                    updateDebugInfo();
+                } else if (checks >= maxChecks) {
+                    clearInterval(interval);
+                    let missing = [];
+                    if (!headerLoaded) missing.push('Header');
+                    if (!footerLoaded) missing.push('Footer');
+                    
+                    updateTestStatus('error', `❌ Failed to load: ${missing.join(', ')}`);
+                    testResults.push(`❌ Failed to load: ${missing.join(', ')}`);
+                    updateDebugInfo();
+                }
+            }, 500);
+        }
+        
+        function updateTestStatus(type, message) {
+            const statusEl = document.getElementById('test-status');
+            statusEl.className = `status ${type}`;
+            statusEl.textContent = message;
+        }
+        
+        function updateDebugInfo() {
+            const debugEl = document.getElementById('debug-info');
+            const info = [
+                `Current Time: ${new Date().toLocaleString()}`,
+                `User Agent: ${navigator.userAgent}`,
+                `Protocol: ${window.location.protocol}`,
+                `Host: ${window.location.host}`,
+                `Pathname: ${window.location.pathname}`,
+                `Console Messages: Check browser console for detailed logs`,
+                `Test Results:`,
+                ...testResults
+            ];
+            
+            debugEl.innerHTML = info.join('<br>');
+        }
+        
+        function checkHeaderFooter() {
+            const results = document.getElementById('manual-test-results');
+            const headerEl = document.getElementById('header-placeholder');
+            const footerEl = document.getElementById('footer-placeholder');
+            
+            let report = '<h3>Manual Test Results:</h3><ul>';
+            
+            if (headerEl && headerEl.innerHTML.includes('<header>')) {
+                report += '<li class="success">✅ Header element found and loaded</li>';
+            } else {
+                report += '<li class="error">❌ Header not loaded properly</li>';
+            }
+            
+            if (footerEl && footerEl.innerHTML.includes('<footer>')) {
+                report += '<li class="success">✅ Footer element found and loaded</li>';
+            } else {
+                report += '<li class="error">❌ Footer not loaded properly</li>';
+            }
+            
+            const navLinks = document.querySelectorAll('nav a');
+            if (navLinks.length > 0) {
+                report += `<li class="success">✅ Found ${navLinks.length} navigation links</li>`;
+            } else {
+                report += '<li class="error">❌ No navigation links found</li>';
+            }
+            
+            report += '</ul>';
+            results.innerHTML = report;
+        }
+        
+        function testNavigation() {
+            const activeLinks = document.querySelectorAll('nav a.active');
+            const results = document.getElementById('manual-test-results');
+            
+            let report = '<h3>Navigation Test:</h3><ul>';
+            
+            if (activeLinks.length > 0) {
+                report += `<li class="success">✅ Found ${activeLinks.length} active navigation item(s)</li>`;
+                activeLinks.forEach((link, index) => {
+                    report += `<li>Active Link ${index + 1}: ${link.textContent} (${link.href})</li>`;
+                });
+            } else {
+                report += '<li class="warning">⚠️ No active navigation items found</li>';
+            }
+            
+            report += '</ul>';
+            results.innerHTML = report;
+        }
+        
+        function testMobile() {
+            const mobileToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.navbar-menu');
+            const results = document.getElementById('manual-test-results');
+            
+            let report = '<h3>Mobile Menu Test:</h3><ul>';
+            
+            if (mobileToggle) {
+                report += '<li class="success">✅ Mobile menu toggle found</li>';
+                
+                if (navMenu) {
+                    // Test toggle functionality
+                    mobileToggle.click();
+                    const isActive = navMenu.classList.contains('active');
+                    report += `<li class="success">✅ Mobile menu toggle works: ${isActive ? 'Menu opened' : 'Menu closed'}</li>`;
+                    
+                    // Close it again
+                    if (isActive) {
+                        setTimeout(() => mobileToggle.click(), 1000);
+                    }
+                } else {
+                    report += '<li class="error">❌ Navbar menu not found</li>';
+                }
+            } else {
+                report += '<li class="warning">⚠️ Mobile menu toggle not found (might be hidden on desktop)</li>';
+            }
+            
+            report += '</ul>';
+            results.innerHTML = report;
+        }
+    </script>
+</body>
+</html>

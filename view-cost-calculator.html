@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Signage Cost Calculator | SignageWorks.in</title>
+    <meta name="description" content="Interactive signage cost calculator for estimating project costs including materials, labor, installation, and maintenance over multiple years.">
+    <meta name="keywords" content="signage cost calculator, project cost estimation, signage pricing, material costs, installation costs, signage budget">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            color: #718096;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .header .brand {
+            color: #5b21b6;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .navigation {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn.active {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            border: 2px solid #7c3aed;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 12px;
+            font-size: 14px;
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.1);
+        }
+        
+        .info-box h4 {
+            color: #4c1d95;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .back-to-home {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(55, 65, 81, 0.3);
+        }
+        
+        iframe {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-height: 800px;
+            height: auto;
+        }
+        
+        .loading-message {
+            text-align: center;
+            padding: 50px;
+            color: #6b7280;
+            font-size: 16px;
+            display: none;
+        }
+        
+        .fallback-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .fallback-link a {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .fallback-link a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .calculator-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .calculator-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .calculator-header h1 {
+            color: #2d3748;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+        
+        .calculator-header .subtitle {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .form-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .form-section h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .input-group label {
+            font-weight: 500;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+        
+        .input-group input,
+        .input-group select {
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .input-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .material-option {
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .material-option:hover {
+            border-color: #7c3aed;
+            background: #f3f4f6;
+        }
+        
+        .material-option.selected {
+            border-color: #7c3aed;
+            background: #ede9fe;
+        }
+        
+        .material-option input[type="radio"] {
+            margin-bottom: 8px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .checkbox-item label {
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+        
+        .cost-summary {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #7c3aed;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .cost-summary h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+        
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #d1d5db;
+        }
+        
+        .cost-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cost-item .label {
+            font-weight: 500;
+            color: #4a5568;
+        }
+        
+        .cost-item .value {
+            font-weight: 600;
+            color: #059669;
+            font-size: 1.1rem;
+        }
+        
+        .total-cost {
+            background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .total-cost .amount {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .total-cost .note {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .input-row-3 {
+                grid-template-columns: 1fr;
+            }
+            
+            .material-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .back-to-home {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
+            
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .cost-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-to-home">← Back to Home</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>💰 Signage Cost Calculator</h1>
+            <div class="subtitle">Professional Cost Estimation Tool for Signage Projects</div>
+            <div class="brand">SignageWorks.in Estimation Tools</div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-buttons">
+                <a href="view-fire-exit-signs.html" class="nav-btn">Fire Exit Signs</a>
+                <a href="view-warning-hazard-signs.html" class="nav-btn">Warning & Hazard Signs</a>
+                <a href="view-project-specification.html" class="nav-btn">Project Specifications</a>
+                <a href="view-layout-planning.html" class="nav-btn">Layout Planning</a>
+                <a href="#" class="nav-btn active">Cost Calculator</a>
+                <a href="advanced-signage-calculator.html" class="nav-btn" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">🔧 Advanced Calculator</a>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <div class="info-box">
+                <h4>📊 Advanced Cost Estimation Tool</h4>
+                <p>This interactive calculator provides detailed cost estimates for signage projects including materials, labor, installation, and maintenance costs over multiple years. Input your project specifications to get instant pricing with detailed breakdown and timeline considerations.</p>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <h1>💰 Signage Cost Calculator</h1>
+                    <div class="subtitle">Professional Project Cost Estimation Tool</div>
+                    <div class="subtitle" style="margin-top: 5px; color: #7c3aed; font-weight: bold;">SignageWorks.in Calculator</div>
+                </div>
+                
+                <div class="main-content">
+                    <div class="calculator-form">
+                        <div class="form-section">
+                            <h3>Project Information</h3>
+                            <div class="input-group">
+                                <label for="projectName">Project Name</label>
+                                <input type="text" id="projectName" placeholder="Enter project name">
+                            </div>
+                            <div class="input-row">
+                                <div class="input-group">
+                                    <label for="buildingType">Building Type</label>
+                                    <select id="buildingType">
+                                        <option value="commercial">Commercial Office</option>
+                                        <option value="industrial">Industrial Facility</option>
+                                        <option value="healthcare">Healthcare Facility</option>
+                                        <option value="educational">Educational Institution</option>
+                                        <option value="residential">Residential Complex</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="totalArea">Total Area (sq ft)</label>
+                                    <input type="number" id="totalArea" placeholder="5000" onchange="calculateCost()">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Fire Exit Signage</h3>
+                            <div class="input-row-3">
+                                <div class="input-group">
+                                    <label for="exitSigns">Exit Signs (300×150mm)</label>
+                                    <input type="number" id="exitSigns" placeholder="10" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Standard exit signs</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="exitArrows">Directional Arrows (400×200mm)</label>
+                                    <input type="number" id="exitArrows" placeholder="15" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Exit direction indicators</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="assemblyPoints">Assembly Points (600×400mm)</label>
+                                    <input type="number" id="assemblyPoints" placeholder="2" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Emergency assembly areas</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Warning & Hazard Signs</h3>
+                            <div class="input-row-3">
+                                <div class="input-group">
+                                    <label for="generalWarning">General Warning (200×150mm)</label>
+                                    <input type="number" id="generalWarning" placeholder="8" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Standard warning signs</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="electricalSigns">Electrical Hazard (150×150mm)</label>
+                                    <input type="number" id="electricalSigns" placeholder="5" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Electrical safety signs</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="chemicalSigns">Chemical Hazard (200×200mm)</label>
+                                    <input type="number" id="chemicalSigns" placeholder="3" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Chemical hazard indicators</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Floor Markings & Directional Signage</h3>
+                            <div class="input-row-3">
+                                <div class="input-group">
+                                    <label for="floorMarkings">Floor Marking Tape (per meter)</label>
+                                    <input type="number" id="floorMarkings" placeholder="50" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Evacuation route markings</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="floorSigns">Floor Mounted Signs (300×300mm)</label>
+                                    <input type="number" id="floorSigns" placeholder="15" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Directional floor indicators</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="stairMarking">Stair Edge Marking (per step)</label>
+                                    <input type="number" id="stairMarking" placeholder="25" oninput="calculateCost()">
+                                    <small style="color: #6b7280;">Anti-slip stair markings</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Material Selection</h3>
+                            <div class="material-grid">
+                                <div class="material-option" onclick="selectMaterial('standard')" id="material-standard">
+                                    <input type="radio" name="material" value="standard" checked>
+                                    <strong>Standard Acrylic</strong>
+                                    <div>3mm UV stable, non-glow</div>
+                                    <div>₹120/sign average</div>
+                                </div>
+                                <div class="material-option" onclick="selectMaterial('photoluminescent')" id="material-photoluminescent">
+                                    <input type="radio" name="material" value="photoluminescent">
+                                    <strong>Photoluminescent</strong>
+                                    <div>Glow-in-dark, emergency grade</div>
+                                    <div>₹280/sign average</div>
+                                </div>
+                                <div class="material-option" onclick="selectMaterial('led')" id="material-led">
+                                    <input type="radio" name="material" value="led">
+                                    <strong>LED Illuminated</strong>
+                                    <div>Backlit LED, 24/7 visibility</div>
+                                    <div>₹650/sign average</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Additional Services</h3>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="installation" onchange="calculateCost()">
+                                    <label for="installation">Professional Installation</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="siteVisit" onchange="calculateCost()">
+                                    <label for="siteVisit">Site Survey & Planning</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="compliance" onchange="calculateCost()">
+                                    <label for="compliance">Compliance Certification</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="warranty" onchange="calculateCost()">
+                                    <label for="warranty">Extended Warranty (5 years)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cost-summary">
+                        <h3>💰 Project Cost Summary</h3>
+                        
+                        <div class="cost-item">
+                            <span class="label">Fire Exit Signs</span>
+                            <span class="value" id="cost-exit">₹0</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="label">Warning Signs</span>
+                            <span class="value" id="cost-warning">₹0</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="label">Floor Markings</span>
+                            <span class="value" id="cost-floor">₹0</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="label">Material Premium</span>
+                            <span class="value" id="cost-material">₹0</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="label">Installation</span>
+                            <span class="value" id="cost-installation">₹0</span>
+                        </div>
+                        <div class="cost-item">
+                            <span class="label">Additional Services</span>
+                            <span class="value" id="cost-services">₹0</span>
+                        </div>
+                        
+                        <div class="total-cost">
+                            <div class="amount" id="total-amount">₹0</div>
+                            <div class="note">Estimated project cost including materials & services</div>
+                            <div class="note" style="margin-top: 5px; font-size: 11px;">*Final pricing subject to site survey and specifications</div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button onclick="generateQuote()" style="background: #fbbf24; color: #1f2937; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer;">📄 Generate Detailed Quote</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Sign type pricing with size considerations
+        const signTypes = {
+            exitSigns: { basePrice: 150, size: '300×150mm', area: 450 },        // ₹150 for standard exit signs
+            exitArrows: { basePrice: 200, size: '400×200mm', area: 800 },       // ₹200 for directional arrows  
+            assemblyPoints: { basePrice: 450, size: '600×400mm', area: 2400 },   // ₹450 for large assembly points
+            generalWarning: { basePrice: 120, size: '200×150mm', area: 300 },    // ₹120 for general warning
+            electricalSigns: { basePrice: 100, size: '150×150mm', area: 225 },   // ₹100 for electrical hazard
+            chemicalSigns: { basePrice: 180, size: '200×200mm', area: 400 }      // ₹180 for chemical hazard
+        };
+        
+        // Material pricing multipliers
+        const materialPrices = {
+            standard: { multiplier: 1, name: 'Standard Acrylic' },
+            photoluminescent: { multiplier: 2.3, name: 'Photoluminescent' },
+            led: { multiplier: 5.4, name: 'LED Illuminated' }
+        };
+        
+        let selectedMaterial = 'standard';
+        
+        // Initialize calculator on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial material selection
+            selectMaterial('standard');
+            calculateCost();
+        });
+        
+        function selectMaterial(materialType) {
+            selectedMaterial = materialType;
+            
+            // Update radio button
+            const radioButton = document.querySelector(`input[value="${materialType}"]`);
+            if (radioButton) {
+                radioButton.checked = true;
+            }
+            
+            // Update visual selection
+            document.querySelectorAll('.material-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.getElementById(`material-${materialType}`).classList.add('selected');
+            
+            calculateCost();
+        }
+        
+        function calculateCost() {
+            // Get input values
+            const exitSigns = parseInt(document.getElementById('exitSigns').value) || 0;
+            const exitArrows = parseInt(document.getElementById('exitArrows').value) || 0;
+            const assemblyPoints = parseInt(document.getElementById('assemblyPoints').value) || 0;
+            
+            const generalWarning = parseInt(document.getElementById('generalWarning').value) || 0;
+            const electricalSigns = parseInt(document.getElementById('electricalSigns').value) || 0;
+            const chemicalSigns = parseInt(document.getElementById('chemicalSigns').value) || 0;
+            
+            // Get floor markings inputs
+            const floorMarkings = parseInt(document.getElementById('floorMarkings').value) || 0;
+            const floorSigns = parseInt(document.getElementById('floorSigns').value) || 0;
+            const stairMarking = parseInt(document.getElementById('stairMarking').value) || 0;
+            
+            const totalArea = parseInt(document.getElementById('totalArea').value) || 0;
+            
+            // Get service checkboxes
+            const installation = document.getElementById('installation').checked;
+            const siteVisit = document.getElementById('siteVisit').checked;
+            const compliance = document.getElementById('compliance').checked;
+            const warranty = document.getElementById('warranty').checked;
+            
+            // Get material multiplier
+            const materialMultiplier = materialPrices[selectedMaterial].multiplier;
+            
+            // Calculate costs with size-based pricing
+            let exitCost = (
+                (exitSigns * signTypes.exitSigns.basePrice) +
+                (exitArrows * signTypes.exitArrows.basePrice) +
+                (assemblyPoints * signTypes.assemblyPoints.basePrice)
+            ) * materialMultiplier;
+            
+            let warningCost = (
+                (generalWarning * signTypes.generalWarning.basePrice) +
+                (electricalSigns * signTypes.electricalSigns.basePrice) +
+                (chemicalSigns * signTypes.chemicalSigns.basePrice)
+            ) * materialMultiplier;
+            
+            // Calculate floor markings cost - these don't use material multipliers as they're different products
+            let floorCost = 0;
+            floorCost += floorMarkings * 35;  // ₹35 per meter for floor marking tape
+            floorCost += floorSigns * 220;    // ₹220 per floor mounted sign (300x300mm)
+            floorCost += stairMarking * 15;   // ₹15 per step for stair edge marking
+            
+            // Calculate material premium (difference from standard pricing)
+            let materialPremium = 0;
+            if (selectedMaterial !== 'standard') {
+                const totalSigns = exitSigns + exitArrows + assemblyPoints + generalWarning + electricalSigns + chemicalSigns;
+                const standardCost = (
+                    (exitSigns * signTypes.exitSigns.basePrice) +
+                    (exitArrows * signTypes.exitArrows.basePrice) +
+                    (assemblyPoints * signTypes.assemblyPoints.basePrice) +
+                    (generalWarning * signTypes.generalWarning.basePrice) +
+                    (electricalSigns * signTypes.electricalSigns.basePrice) +
+                    (chemicalSigns * signTypes.chemicalSigns.basePrice)
+                );
+                materialPremium = standardCost * (materialMultiplier - 1);
+                // Adjust exit and warning costs to standard, premium shows the extra cost
+                exitCost = (
+                    (exitSigns * signTypes.exitSigns.basePrice) +
+                    (exitArrows * signTypes.exitArrows.basePrice) +
+                    (assemblyPoints * signTypes.assemblyPoints.basePrice)
+                );
+                warningCost = (
+                    (generalWarning * signTypes.generalWarning.basePrice) +
+                    (electricalSigns * signTypes.electricalSigns.basePrice) +
+                    (chemicalSigns * signTypes.chemicalSigns.basePrice)
+                );
+            }
+            
+            // Calculate installation cost (₹75 per sign + ₹20 per sq ft)
+            const totalSigns = exitSigns + exitArrows + assemblyPoints + generalWarning + electricalSigns + chemicalSigns;
+            let installationCost = 0;
+            if (installation) {
+                installationCost = (totalSigns * 75) + (totalArea * 20);
+            }
+            
+            // Calculate additional services
+            let servicesCost = 0;
+            if (siteVisit) servicesCost += Math.max(6000, totalArea * 10);
+            if (compliance) servicesCost += Math.max(10000, totalSigns * 250);
+            if (warranty) servicesCost += totalSigns * 200;
+            
+            // Calculate total
+            const totalCost = exitCost + warningCost + floorCost + materialPremium + installationCost + servicesCost;
+            
+            // Update display
+            updateCostDisplay(exitCost, warningCost, floorCost, materialPremium, installationCost, servicesCost, totalCost);
+        }
+        
+        function updateCostDisplay(exitCost, warningCost, floorCost, materialPremium, installationCost, servicesCost, totalCost) {
+            document.getElementById('cost-exit').textContent = formatCurrency(exitCost);
+            document.getElementById('cost-warning').textContent = formatCurrency(warningCost);
+            document.getElementById('cost-floor').textContent = formatCurrency(floorCost);
+            document.getElementById('cost-material').textContent = formatCurrency(materialPremium);
+            document.getElementById('cost-installation').textContent = formatCurrency(installationCost);
+            document.getElementById('cost-services').textContent = formatCurrency(servicesCost);
+            document.getElementById('total-amount').textContent = formatCurrency(totalCost);
+        }
+        
+        function formatCurrency(amount) {
+            return '₹' + amount.toLocaleString('en-IN');
+        }
+        
+        function generateQuote() {
+            const projectName = document.getElementById('projectName').value || 'Untitled Project';
+            const buildingType = document.getElementById('buildingType').value;
+            const totalArea = document.getElementById('totalArea').value || 0;
+            const totalAmount = document.getElementById('total-amount').textContent;
+            
+            const quoteData = {
+                projectName: projectName,
+                buildingType: buildingType,
+                totalArea: totalArea,
+                material: selectedMaterial,
+                totalCost: totalAmount,
+                timestamp: new Date().toLocaleDateString('en-IN')
+            };
+            
+            // Create quote text
+            let quoteText = `SIGNAGE PROJECT COST ESTIMATE\n`;
+            quoteText += `Generated by SignageWorks.in\n\n`;
+            quoteText += `Project: ${quoteData.projectName}\n`;
+            quoteText += `Building Type: ${buildingType.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}\n`;
+            quoteText += `Area: ${totalArea} sq ft\n`;
+            quoteText += `Material: ${selectedMaterial.charAt(0).toUpperCase() + selectedMaterial.slice(1)}\n`;
+            quoteText += `Date: ${quoteData.timestamp}\n\n`;
+            quoteText += `ESTIMATED TOTAL: ${totalAmount}\n\n`;
+            quoteText += `*This is a preliminary estimate. Final pricing subject to site survey and detailed specifications.\n`;
+            quoteText += `*Valid for 30 days from generation date.\n\n`;
+            quoteText += `Contact: SignageWorks.in for detailed quote and project discussion.`;
+            
+            // Create and download quote file
+            const element = document.createElement('a');
+            const file = new Blob([quoteText], { type: 'text/plain' });
+            element.href = URL.createObjectURL(file);
+            element.download = `SignageWorks_Quote_${projectName.replace(/\s+/g, '_')}_${Date.now()}.txt`;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            
+            alert('Quote generated successfully! The file has been downloaded to your device.');
+        }
+    </script>
+</body>
+</html>
