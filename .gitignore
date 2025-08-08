@@ -1,0 +1,6 @@
+# Backup directories
+backup-20250806-1302/
+header-fix-backup-20250806-1319/
+
+# PowerShell developer scripts
+*.ps1
